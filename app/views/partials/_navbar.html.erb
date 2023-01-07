@@ -15,21 +15,61 @@
           <li class="nav-item disabled">
             <a class="nav-link">Hola, <%= Current.user.username %>!</a>
           </li>
+          
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Usuarios
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="/users/new">Crear</a></li>
+              <li><a class="dropdown-item" href="/users/new">Nuevo usuario</a></li>
               <li><a class="dropdown-item" href="/users">ver todos</a></li>
-              <li><hr class="dropdown-divider"></li>
             </ul>
           </li>
-          <li><%= link_to t('.cerrar sesión'), session_path(Current.user.id), data: {
-                turbo_method: :delete, 
-                turno_confirm: t('common.confirm')
-              } %>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Localidades
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Nueva localidad</a></li>
+              <li><a class="dropdown-item" href="#">ver todos</a></li>
+            </ul>
           </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Sucursales
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Nueva sucursal</a></li>
+              <li><a class="dropdown-item" href="#">ver todas</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Turnos
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Nuevo turno</a></li>
+              <li><a class="dropdown-item" href="#">ver todos</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Mi perfil
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item"><%= link_to 'Ver mis datos', user_path(Current.user.id)%></a></li>
+              <li><a class="dropdown-item"><%= link_to 'Cambiar mi contraseña', edit_password_path(Current.user.id) %></a></li>
+            </ul>
+          </li>
+          <a class="nav-link active" aria-current="page"><%= link_to t('.cerrar sesión'), session_path(Current.user.id), data: {
+                turbo_method: :delete, 
+                turbo_confirm: t('common.confirm')
+              } %>
+          </a>
         <% else %>  
           <li class="nav-item">
             <a class="nav-link" href="/sessions/new">Iniciar Sesión</a>
@@ -39,10 +79,11 @@
           </li>
         <% end %>  
       </ul>
-      <form class="d-flex" role="search">
+
+      <%# <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
+      </form> %>
     </div>
   </div>
 </nav>

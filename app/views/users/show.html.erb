@@ -1,5 +1,21 @@
 <div class="container">
-    <h1 class="display-3 text-center">usuario creado</h1>
-        <%=@user.username %>
-        <%=@user.email %>
+  <h1 class="display-3 text-center">Datos de Usuario</h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Usuario</th>
+        <th scope="col">Email</th>
+        <th scope="col">Rol</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th><%= @user.id %></th>
+        <td><%= @user.username %></td>
+        <td><%= @user.email %></td>
+        <td><%= @user.roles.pluck(:name) %></td>
+      </tr>
+    </tbody>
+  </table>
 </div>

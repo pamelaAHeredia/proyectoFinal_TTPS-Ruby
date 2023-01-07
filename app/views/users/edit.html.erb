@@ -1,5 +1,35 @@
 <div class="container">
     <h1 class="display-3 text-center">Editar Usuario</h1>
+    <div class="form-group">
+        <%= form_with model: @user do |f| %>
 
-    <%= render 'auth/users/form' %>
+            <% @user.errors.full_messages.each do |error| %>
+                <div>
+                    <% error %>
+                </div>
+            <% end %>
+
+            <div>
+                <%= f.label :username %><br>
+                <%= f.text_field :username, class: 'form-control', required: true %>
+            </div>
+
+            <div>
+                <%= f.label :email %><br>
+                <%= f.email_field :email, class: 'form-control', required: true  %>
+            </div>
+
+            <div>
+                Rol Actual: <%= @user.roles.pluck(:name)%><br>
+                <%= f.label :Cambiar %><br> 
+                <%= f.select :roles,  
+                options_for_select([['Administrador','admin'],['Personal','personnel'], ['Cliente','client']], params[:roles]),
+                {}, { :class => 'span3 controls controls-row' } %>
+            </div>
+
+            <div>
+                <%= f.submit 'Editar', class: 'btn btn-success' %>
+            </div>
+        <% end %>
+    </div>
 </div>

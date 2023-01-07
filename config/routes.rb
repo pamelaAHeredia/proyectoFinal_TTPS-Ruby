@@ -11,8 +11,6 @@ Rails.application.routes.draw do
   end 
 
   resources :users
-  get "users/index", to: 'users#index'
-  get "/users/:id/edit", to: 'users#edit'
-  post "/users/admin_new", to: 'users#admin_create'
-
+  get '/users/:id/edit_password', to: 'users#edit_password', as: :edit_password
+  patch '/users/:id/edit_password', to: 'users#update_password', as: :update_password
 end

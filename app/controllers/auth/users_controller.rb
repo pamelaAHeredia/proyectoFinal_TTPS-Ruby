@@ -6,12 +6,19 @@ class Auth::UsersController < ApplicationController
     end
 
     def create 
-        # sobreescribit el rol
-        render plain: params[:user].inspect
-        @user = User.new user_params
+        user = User.new do |u|
+            u.username = user_params[:username]
+            u.email = user_params[:email]
+            u.password = user_params[:password]
+        end
+
+        role = user_params[:roles]
+        user.assign_role(role)
+
+        @user = user
         if @user.save
-            session[:user_id] = @user.id
-            return redirect_to users_path 
+            redirect_to users_path
+            return
         end
 
         render :new, status: :unprocessable_entity
@@ -21,8 +28,7 @@ class Auth::UsersController < ApplicationController
 
     #paràmetros fuertes
     def user_params
-        params.require(:user).permit(:username, :email, :password, :role)
+        params.require(:user).permit(:username, :email, :password, :roles)
     end
-
 
 end

@@ -2,7 +2,6 @@ class User < ApplicationRecord
   rolify
     # para que la contraseña funcione encriptada, se usa bcrypt
     has_secure_password 
-    after_create :assign_default_role
 
     validates :email, presence: true, uniqueness: true
     validates :username, presence: true, uniqueness: true, 
@@ -13,16 +12,20 @@ class User < ApplicationRecord
     }
     validates :password, length: { minimum: 6 }
 
-    before_save :downcase_attributes
+    def assign_role(role)
+      if (role.blank?)
+        self.add_role(:client) 
+      else
+        self.add_role(role)
+      end
+    end
+
+    def update_role(role)
+      if self.roles.length > 0
+        self.remove_role self.roles.pluck(:name)
+        self.add_role(role)
+      end
+    end 
 
     private 
-
-    def downcase_attributes
-        self.username = username.downcase
-        self.email = email.downcase
-    end
-
-    def assign_default_role
-      self.add_role(:client) if self.roles.blank?
-    end
 end
