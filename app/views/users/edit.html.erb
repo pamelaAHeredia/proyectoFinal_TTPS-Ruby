@@ -17,10 +17,13 @@
             <div>
                 <%= f.label :email %><br>
                 <%= f.email_field :email, class: 'form-control', required: true  %>
+            </div><br>
+
+            <div>
+            <p> Rol Actual: <%= @user.roles.pluck(:name)[0]%><br></p>
             </div>
 
             <div>
-                Rol Actual: <%= @user.roles.pluck(:name)%><br>
                 <%= f.label :Cambiar %><br> 
                 <%= f.select :roles,  
                 options_for_select([['Administrador','admin'],['Personal','personnel'], ['Cliente','client']], params[:roles]),

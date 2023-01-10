@@ -26,8 +26,11 @@ class UsersController < ApplicationController
     end
 
     def destroy   
-        @user.destroy
-        return redirect_to users_path
+        if @user.id != 1
+            @user.destroy
+            return redirect_to users_path, notice: "El usuario ha sido eliminado."
+        end
+        redirect_to users_path, alert: "No es posible eliminar al administrador."
     end 
 
     def edit_password
@@ -35,17 +38,17 @@ class UsersController < ApplicationController
 
     def update_password
         if @user.authenticate(password_params[:password])
-            if password_params[:confirm_password] == password_params[:new_password]
+            if  password_params[:confirm_password] == password_params[:new_password]
                 @user.password = password_params[:new_password]
                 if @user.save
-                    return redirect_to @user, notice: 'Contraseña actualizada!' 
+                    return redirect_to :edit_password, notice: 'Contraseña actualizada!' 
                 end 
                 render :edit_password, alert: 'No se pudo actualizar la contraseña.', status: :unprocessable_entity
             else    
                 return redirect_to :edit_password, alert: 'Las contraseñas ingresadas no coinciden.'
             end
         end
-        return redirect_to :edit_password, alert: 'Contraseña incorrecta'
+        redirect_to :edit_password, alert: 'Contraseña incorrecta'
     end
 
     private 

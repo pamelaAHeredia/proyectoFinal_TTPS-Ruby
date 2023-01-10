@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  rolify
+  rolify before_add: :before_add_method
     # para que la contraseña funcione encriptada, se usa bcrypt
     has_secure_password 
 
@@ -14,18 +14,20 @@ class User < ApplicationRecord
 
     def assign_role(role)
       if (role.blank?)
-        self.add_role(:client) 
+        self.add_role(:cliente) 
       else
         self.add_role(role)
       end
     end
 
     def update_role(role)
-      if self.roles.length > 0
-        self.remove_role self.roles.pluck(:name)
         self.add_role(role)
-      end
     end 
 
     private 
+
+    def before_add_method role
+      self.roles = []
+    end
+
 end

@@ -18,7 +18,7 @@
                 <th><%= user.id %></th>
                 <td><%= user.username %></td>
                 <td> <%= user.email %></td>
-                <td> <%= user.roles.pluck(:name)%> </td>
+                <td> <%= user.roles.pluck(:name)[0] %> </td>
                 <td>
                     <div class="dropdown">
                         <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -26,6 +26,7 @@
                         </a>
 
                         <ul class="dropdown-menu">
+                            <li><a class="dropdown-item"><%= link_to 'Ver usuario', user_path(user) %></a></li>
                             <li><a class="dropdown-item"><%= link_to 'Editar', edit_user_path(user) %></a></li>
                             <li><a class="dropdown-item"><%= button_to 'Eliminar', user, method: :delete %></a></li>
                         </ul>
