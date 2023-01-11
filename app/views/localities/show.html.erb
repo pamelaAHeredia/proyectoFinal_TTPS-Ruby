@@ -1,0 +1,33 @@
+<div class="container">
+  <h1 class="display-3 text-center">Datos de la localidad</h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Provincia</th>
+        <th scope="col">Sucursal</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th><%= @locality.id %></th>
+        <td><%= @locality.name %></td>
+        <td><%= Locality.provinces[@locality.province] %></td>
+        <td></td>
+        <td>
+         <div class="dropdown">
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                ver Acciones
+            </a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item"><%= link_to 'Editar', edit_locality_path(@locality) %></a></li>
+                <li><a class="dropdown-item"><%= button_to 'Eliminar', @locality, method: :delete %></a></li>
+            </ul>            
+        </div>      
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

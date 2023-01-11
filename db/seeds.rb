@@ -8,14 +8,14 @@
 
 # USUARIOS
 
-u1 = User.create(username: "admin", email: "admin@mail.com", password: "123456")
-u2 = User.create(username: "personal", email: "personal@mail.com", password: "123456")
-u3 = User.create(username: "cliente", email: "cliente@mail.com", password: "123456")
+u1 = User.create(username: 'admin', email: 'admin@mail.com', password: '123456')
+u2 = User.create(username: 'personal', email: 'personal@mail.com', password: '123456')
+u3 = User.create(username: 'cliente', email: 'cliente@mail.com', password: '123456')
 
 # Asignación de roles
 u1.add_role :admin
-u2.add_role :personal
-u3.add_role :cliente
+u2.add_role :bank_stuff
+u3.add_role :client
 
 # Sucursales
 

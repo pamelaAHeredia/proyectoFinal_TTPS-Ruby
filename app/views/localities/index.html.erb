@@ -1,24 +1,25 @@
 <div class="container">
-    <h1 class="display-4 text-center">Todos los Usuarios</h1>
+    <h1 class="display-4 text-center">Todos las localidades</h1>
 
     
     <table class="table table-hover">
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Usuario</th>
-                <th>Email</th>
-                <th>Rol</th>
+                <th>Nombre</th>
+                <th>Provincia</th>
+                <th>Sucursal</th>
                 <th>Acciones</th>
+
             </tr>
         </thead>
-        <%- @users.each do |user| %>
+        <%- @localities.each do |locality| %>
         <tbody>  
             <tr>
-                <th><%= user.id %></th>
-                <td><%= user.username %></td>
-                <td> <%= user.email %></td>
-                <td> <%= Role.roles[user.roles.pluck(:name)[0]] %> </td>
+                <th><%= locality.id %></th>
+                <td><%= locality.name %></td>
+                <td><%= Locality.provinces[locality.province] %></td>
+                <td></td>
                 <td>
                     <div class="dropdown">
                         <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -26,9 +27,9 @@
                         </a>
 
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item"><%= link_to 'Ver usuario', user_path(user) %></a></li>
-                            <li><a class="dropdown-item"><%= link_to 'Editar', edit_user_path(user) %></a></li>
-                            <li><a class="dropdown-item"><%= button_to 'Eliminar', user, method: :delete %></a></li>
+                            <li><a class="dropdown-item"><%= link_to 'Ver localidad', locality_path(locality) %></a></li>
+                            <li><a class="dropdown-item"><%= link_to 'Editar', edit_locality_path(locality) %></a></li>
+                            <li><a class="dropdown-item"><%= button_to 'Eliminar', locality, method: :delete %></a></li>
                         </ul>
                     </div>       
                 </td>
@@ -40,5 +41,3 @@
     </table>
 
 </div>
-
-<%# <%= render @users%> 

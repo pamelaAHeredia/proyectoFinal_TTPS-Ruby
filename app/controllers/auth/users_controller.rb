@@ -1,34 +1,28 @@
 class Auth::UsersController < ApplicationController
-    skip_before_action :protect_pages
+  skip_before_action :protect_pages
 
-    def new
-        @user = User.new
+  def new
+    @user = User.new
+  end
+
+  def create
+    user = User.new do |u|
+      u.username = user_params[:username]
+      u.email = user_params[:email]
+      u.password = user_params[:password]
+      u.assign_role user_params[:roles]
     end
 
-    def create 
-        user = User.new do |u|
-            u.username = user_params[:username]
-            u.email = user_params[:email]
-            u.password = user_params[:password]
-        end
+    @user = user
+    return redirect_to users_path, notice: 'Usuario creado' if @user.save
 
-        role = user_params[:roles]
-        user.assign_role(role)
+    render :new, status: :unprocessable_entity
+  end
 
-        @user = user
-        if @user.save
-            redirect_to users_path
-            return
-        end
+  private
 
-        render :new, status: :unprocessable_entity
-    end
-
-    private 
-
-    #paràmetros fuertes
-    def user_params
-        params.require(:user).permit(:username, :email, :password, :roles)
-    end
-
+  # paràmetros fuertes
+  def user_params
+    params.require(:user).permit(:username, :email, :password, :roles)
+  end
 end
