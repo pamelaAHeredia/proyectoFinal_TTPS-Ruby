@@ -1,5 +1,11 @@
 class Locality < ApplicationRecord
-  validates :name, presence: true
+  has_many :branches, dependent: :restrict_with_exception
+
+  validates :name, presence: true, length: { in: 3..40 },
+                   format: {
+                     with: /\A[a-zA-Zñáéíóú\s]+\z/,
+                     message: 'Ingrese sólo letras'
+                   }
   validates :province, presence: true
 
   enum :province,

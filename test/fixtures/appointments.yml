@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date: 2023-01-28
+  time: 2023-01-28 15:52:59
+  motive: MyString
+  status: MyString
+  comment: MyString
+
+two:
+  date: 2023-01-28
+  time: 2023-01-28 15:52:59
+  motive: MyString
+  status: MyString
+  comment: MyString

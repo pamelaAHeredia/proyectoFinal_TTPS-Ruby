@@ -1,43 +1,37 @@
 <div class="container">
-    <h1 class="display-4 text-center">Todos las localidades</h1>
-
-    
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Provincia</th>
-                <th>Sucursal</th>
-                <th>Acciones</th>
-
-            </tr>
-        </thead>
-        <%- @localities.each do |locality| %>
-        <tbody>  
-            <tr>
-                <th><%= locality.id %></th>
-                <td><%= locality.name %></td>
-                <td><%= Locality.provinces[locality.province] %></td>
-                <td></td>
-                <td>
-                    <div class="dropdown">
-                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            ver Acciones
-                        </a>
-
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item"><%= link_to 'Ver localidad', locality_path(locality) %></a></li>
-                            <li><a class="dropdown-item"><%= link_to 'Editar', edit_locality_path(locality) %></a></li>
-                            <li><a class="dropdown-item"><%= button_to 'Eliminar', locality, method: :delete %></a></li>
-                        </ul>
-                    </div>       
-                </td>
-                <td></td>
-                <td></td>
-            </tr>
-        </tbody>
-            <% end %>
-    </table>
-
+  <h1 class="display-4 text-center">Todos las localidades</h1>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Provincia</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <%- @localities.each do |locality| %>
+      <tbody>
+        <tr>
+          <th><%= locality.id %></th>
+          <td><%= locality.name %></td>
+          <td><%= Locality.provinces[locality.province] %></td>
+          <td>
+            <div class="dropdown">
+              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                ver Acciones
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item"><%= link_to 'Ver sucursales asociadas', locality_path(locality) %></a></li>
+                <li><a class="dropdown-item"><%= link_to 'Editar', edit_locality_path(locality) %></a></li>
+                <li><a class="dropdown-item"><%= link_to 'Eliminar', locality, method: :delete, data: { confirm: 'Estás seguro de que deseas eliminarlo?'} %></a></li>
+              </ul>
+            </div>
+          </td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    <% end %>
+  </table>
+  <div><%= link_to 'volver', home_index_path %></div>
 </div>

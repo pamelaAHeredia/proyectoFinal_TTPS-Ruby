@@ -9,8 +9,13 @@ class Auth::UsersController < ApplicationController
     user = User.new do |u|
       u.username = user_params[:username]
       u.email = user_params[:email]
-      u.password = user_params[:password]
       u.assign_role user_params[:roles]
+      u.branch_id = user_params[:branch_id] unless user_params[:roles] != 'bank_staff'
+      if user_params[:password].blank? 
+        u.password = '123456'
+      else 
+        u.password = user_params[:password] 
+      end
     end
 
     @user = user
@@ -23,6 +28,6 @@ class Auth::UsersController < ApplicationController
 
   # paràmetros fuertes
   def user_params
-    params.require(:user).permit(:username, :email, :password, :roles)
+    params.require(:user).permit(:username, :email, :password, :roles, :branch_id)
   end
 end

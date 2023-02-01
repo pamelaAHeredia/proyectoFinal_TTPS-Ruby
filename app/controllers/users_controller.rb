@@ -1,19 +1,28 @@
 class UsersController < ApplicationController
-  # callback para evitar duplicar
   before_action :set_user, only: %i[show edit update destroy edit_password update_password]
+  before_action :authorize!, only: %i[index]
 
   def index
-    @users = User.all
+    if Current.user.has_role? :bank_staff
+      @users = User.with_role(:client)
+    elsif Current.user.has_role? :admin
+      @users = User.all
+    end
   end
 
-  def show; end
+  def show
+    authorize! @user
+  end
 
-  def edit; end
+  def edit
+    authorize! @user
+  end
 
   def update
+    authorize! @user
     @user.username = user_params[:username]
     @user.email = user_params[:email]
-
+    @user.branch_id = user_params[:branch_id]
     if @user.save
       @user.update_role(user_params[:roles])
       redirect_to @user, notice: 'Usuario actualizado!'
@@ -24,6 +33,7 @@ class UsersController < ApplicationController
   end
 
   def destroy
+    authorize! @user
     if @user.id != 1
       @user.destroy
       return redirect_to users_path, notice: 'El usuario ha sido eliminado.'
@@ -31,9 +41,12 @@ class UsersController < ApplicationController
     redirect_to users_path, alert: 'No es posible eliminar al administrador.'
   end
 
-  def edit_password; end
+  def edit_password
+    authorize! @user
+  end
 
   def update_password
+    authorize! @user
     if @user.authenticate(password_params[:password])
       unless password_params[:confirm_password] == password_params[:new_password]
         return redirect_to :edit_password, alert: 'Las contraseñas ingresadas no coinciden.'
@@ -55,7 +68,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:username, :email, :roles)
+    params.require(:user).permit(:username, :email, :roles, :branch_id)
   end
 
   def password_params

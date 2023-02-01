@@ -1,7 +1,7 @@
 <div class="container">
     <h1 class="display-4 text-center">Todos los Usuarios</h1>
 
-    
+    <% if @users.length > 0 %>    
     <table class="table table-hover">
         <thead>
             <tr>
@@ -9,7 +9,10 @@
                 <th>Usuario</th>
                 <th>Email</th>
                 <th>Rol</th>
+                <% if Current.user.has_role? :admin %>
+                <th>Sucursal ID</th>
                 <th>Acciones</th>
+                <% end %>
             </tr>
         </thead>
         <%- @users.each do |user| %>
@@ -19,6 +22,8 @@
                 <td><%= user.username %></td>
                 <td> <%= user.email %></td>
                 <td> <%= Role.roles[user.roles.pluck(:name)[0]] %> </td>
+                <% if Current.user.has_role? :admin %>
+                <td> <%= user.branch_id if !user.branch_id.blank? %></td>
                 <td>
                     <div class="dropdown">
                         <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -28,17 +33,17 @@
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item"><%= link_to 'Ver usuario', user_path(user) %></a></li>
                             <li><a class="dropdown-item"><%= link_to 'Editar', edit_user_path(user) %></a></li>
-                            <li><a class="dropdown-item"><%= button_to 'Eliminar', user, method: :delete %></a></li>
+                            <li><a class="dropdown-item"><%= link_to 'Eliminar', user, method: :delete, data: { confirm: 'Estás seguro de que deseas eliminarlo?'} %></a></li>
                         </ul>
                     </div>       
                 </td>
-                <td></td>
-                <td></td>
+                <% end %>
             </tr>
         </tbody>
-            <% end %>
+        <% end %>
     </table>
-
+    <% else %>
+    <h3>No hay usuarios para mostrar</h3>
+    <% end %>
+<div><%= link_to 'volver', home_index_path %></div>
 </div>
-
-<%# <%= render @users%> 

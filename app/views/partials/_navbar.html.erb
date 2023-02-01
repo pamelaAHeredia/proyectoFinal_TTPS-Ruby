@@ -9,67 +9,58 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="/">Home</a>
         </li>
-
         <% if Current.user %>
-
           <li class="nav-item disabled">
             <a class="nav-link">Hola, <%= Current.user.username %>!</a>
           </li>
-
-          <% if Current.user.has_role? :admin %>
-          
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Usuarios
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="/users/new">Nuevo usuario</a></li>
-              <li><a class="dropdown-item" href="/users">ver todos</a></li>
-            </ul>
-          </li>
-
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Localidades
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="/localities/new">Nueva localidad</a></li>
-              <li><a class="dropdown-item" href="/localities">Ver todas</a></li>
-            </ul>
-          </li>
-
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Sucursales
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Nueva sucursal</a></li>
-              <li><a class="dropdown-item" href="#">ver todas</a></li>
-            </ul>
-          </li>
-
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Horarios
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Crear horario</a></li>
-              <li><a class="dropdown-item" href="#">Ver horarios</a></li>
-            </ul>
-          </li>
-
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Turnos
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Nuevo turno</a></li>
-              <li><a class="dropdown-item" href="#">Ver turnos</a></li>
-            </ul>
-          </li>
-
+          <% if !Current.user.has_role? :client %>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Usuarios
+              </a>
+              <ul class="dropdown-menu">
+                <% if !Current.user.has_role? :bank_staff %>
+                <li><a class="dropdown-item" href="/users/new">Nuevo usuario</a></li>
+                <% end %>
+                <li><a class="dropdown-item" href="/users">ver todos</a></li>
+              </ul>
+            </li>
+            <% if !Current.user.has_role? :bank_staff %>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Localidades
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/localities/new">Nueva localidad</a></li>
+                <li><a class="dropdown-item" href="/localities">Ver todas</a></li>
+              </ul>
+            </li>
+            <% end %>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Sucursales
+              </a>
+              <ul class="dropdown-menu">
+              <% if Current.user.has_role? :admin %>
+                <li><a class="dropdown-item" href="/branches/new">Nueva sucursal</a></li>
+              <% end %>
+                <li><a class="dropdown-item" href="/branches">ver todas</a></li>
+              </ul>
+            </li>
           <% end %>
 
+          <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Turnos
+              </a>
+              <ul class="dropdown-menu">
+              <% if !Current.user.has_role? :bank_staff %>  
+                <li><a class="dropdown-item" href="/appointments/new">Nuevo turno</a></li>
+              <% end %>
+                <li><a class="dropdown-item" href="/appointments">Ver turnos</a></li>
+              </ul>
+            </li>
+            
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Mi perfil
@@ -79,25 +70,19 @@
               <li><a class="dropdown-item"><%= link_to 'Cambiar mi contraseña', edit_password_path(Current.user.id) %></a></li>
             </ul>
           </li>
-          <a class="nav-link active" aria-current="page"><%= link_to t('.cerrar sesión'), session_path(Current.user.id), data: {
-                turbo_method: :delete, 
-                turbo_confirm: t('common.confirm')
-              } %>
+
+          <a class="nav-link active" aria-current="page"><%= link_to 'cerrar sesión', session_path(Current.user.id),
+                method: :delete, data: { confirm: 'Estás seguro de que deseas cerrar la sesión?'} %>
           </a>
-        <% else %>  
+        <% else %>
           <li class="nav-item">
             <a class="nav-link" href="/sessions/new">Iniciar Sesión</a>
           </li>
-                  <li class="nav-item">
+          <li class="nav-item">
             <a class="nav-link" href="/users/new">Registrarse</a>
           </li>
-        <% end %>  
+        <% end %>
       </ul>
-
-      <%# <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form> %>
     </div>
   </div>
 </nav>

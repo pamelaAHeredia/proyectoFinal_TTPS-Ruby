@@ -1,0 +1,41 @@
+<div class="container">
+  <h1 class="display-4 text-center">Todos los Horarios</h1>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Día de la semana</th>
+        <th>Hora de inicio</th>
+        <th>Hora de fin</th>
+        <th>Sucursal</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <%- @schedules.each do |schedule| %>
+      <tbody>
+        <tr>
+        <th><%= schedule.id %></th>
+        <td><%= Schedule.days[schedule.day] %></td>
+        <td><%= schedule.start_time.strftime("%k:%M")  %></td>
+        <td><%= schedule.end_time.strftime("%k:%M")  %></td>
+        <td><%= schedule.branch.name%></td>
+          <td>
+            <div class="dropdown">
+              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                ver Acciones
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item"><%= link_to 'Ver Horario', schedule_path(schedule) %></a></li>
+                <li><a class="dropdown-item"><%= link_to 'Editar', edit_schedule_path(schedule) %></a></li>
+                <li><a class="dropdown-item"><%= button_to 'Eliminar', schedule, method: :delete %></a></li>
+              </ul>
+            </div>
+          </td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    <% end %>
+  </table>
+  <div><%= link_to t('.volver'), home_index_path %></div>
+</div>

@@ -11,6 +11,9 @@ class User < ApplicationRecord
                        }
   validates :password, length: { minimum: 6 }
 
+  has_many :appointments
+  belongs_to :branch, optional: true
+   
   def assign_role(role)
     if role.blank?
       add_role :client
@@ -23,9 +26,18 @@ class User < ApplicationRecord
     add_role role
   end
 
+  def owner?
+    id == Current.user.id
+  end
+
+  def branch?
+    branch_id == Current.user.branch_id unless branch_id.blank?
+  end
+  
   private
 
   def before_add_method(_role)
     self.roles = []
   end
+
 end

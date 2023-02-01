@@ -1,0 +1,36 @@
+<div class= "container">
+<h1 class= "display-3 text-center">Nuevo turno</h1>
+
+<div class="form-group">
+  <%= form_for :appointment, :url => appointments_path, :method => :post do |f| %>
+    <% @appointment.errors.full_messages.each do |error| %>
+      <div>
+      <% error %>
+      </div>
+      <% end %>
+      <div>
+        <%= f.label :Sucursal %><br>
+        <%= f.collection_select :branch_id, Branch.all.order(name: :asc), :id, :name %>
+      </div>
+      <div>
+        <%= f.label :Fecha %>
+        <%= f.date_select :date, start_year: Time.now.year %>
+      </div>
+      <div>
+        <%= f.label :Hora %>
+        <%= f.time_select :time, required: true %>
+      </div>
+      <div>
+        <%= f.label :Motivo %>
+        <%= f.text_field :motive, class: 'form-control', required: true %>
+      </div>
+      <div>
+        <%= f.hidden_field :user_id, value: Current.user.id%>
+      </div>
+      <div>
+        <%= f.submit 'Guardar', :class => 'btn btn-success' %>
+      </div>
+    <% end %>
+  </div>
+
+</div>
