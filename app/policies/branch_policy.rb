@@ -1,14 +1,14 @@
 class BranchPolicy < BasePolicy
 
   def method_missing(m, *args, &block)
-    Current.user.has_role? :admin
+    Current.user.admin?
   end
 
   def index 
-    !Current.user.has_role? :client
+    !Current.user.customer?
   end
 
   def show
-    !Current.user.has_role? :client
+    !Current.user.customer?
   end
 end

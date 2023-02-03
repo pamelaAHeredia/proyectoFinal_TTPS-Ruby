@@ -1,11 +1,11 @@
 class AppointmentsController < ApplicationController
-  before_action :set_appointment, only: %i[show edit update destroy attended edit_attention]
-  before_action :authorize! , only: %i[new create edit_attention attended destroy]
+  before_action :set_appointment, only: %i[show edit update destroy attend edit_attention]
+  before_action :authorize!, only: %i[new create edit_attention]
 
   def index
-    if Current.user.has_role? :client
+    if Current.user.customer?
       @appointments = Appointment.where(user_id: Current.user.id)
-    elsif Current.user.has_role? :bank_staff
+    elsif Current.user.bank_staff?
       @appointments = Appointment.where(branch_id: Current.user.branch_id)
     else
       @appointments = Appointment.all
@@ -17,7 +17,6 @@ class AppointmentsController < ApplicationController
   end
 
   def create
-    # Poner el estado como pendiente
     @appointment = Appointment.new appointment_params
     @appointment.status = :pending
     return redirect_to appointments_path, notice: 'Turno creado con éxito.' if @appointment.save
@@ -33,8 +32,7 @@ class AppointmentsController < ApplicationController
 
   def update
     authorize! @appointment
-    # si está en estado pendiente Y la fecha es posterior a hoy
-    if @appointment.pending? 
+    if @appointment.pending? && @appointment.available?
       if @appointment.update appointment_params
         return redirect_to appointment_path,
                           notice: 'El turno ha sido actualizado'
@@ -56,7 +54,7 @@ class AppointmentsController < ApplicationController
     authorize! @appointment
   end
   
-  def attended
+  def attend
     authorize! @appointment
     @appointment.status = :attended
     @appointment.comment = attention_params[:comment]

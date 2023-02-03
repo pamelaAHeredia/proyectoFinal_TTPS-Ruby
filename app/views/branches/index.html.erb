@@ -8,7 +8,7 @@
         <th>Dirección</th>
         <th>Teléfono</th>
         <th>Localidad</th>
-        <% if Current.user.has_role? :admin %>
+        <% if Current.user.admin? %>
         <th>Acciones</th>
         <% end %>
       </tr>
@@ -21,7 +21,7 @@
           <td><%= branch.address%></td>
           <td><%= branch.telephone %></td>
           <td><%= branch.locality.name%></td>
-          <% if Current.user.has_role? :admin %>
+          <% if Current.user.admin? %>
           <td>
             <div class="dropdown">
               <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">

@@ -29,8 +29,12 @@ class BranchesController < ApplicationController
 
   def destroy
     # si no tiene turnos pendientes de atención
-    @branch.destroy
-    redirect_to branches_path, notice: 'Sucursal eliminada'
+    if @branch.pending_appointments?
+      redirect_to branches_path, alert: 'No se puede eliminar una sucursal con turnos pendientes de atención.'
+    else
+      @branch.destroy
+      redirect_to branches_path, notice: 'Sucursal eliminada'
+    end
   end
 
   private

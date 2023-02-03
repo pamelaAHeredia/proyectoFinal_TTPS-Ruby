@@ -24,5 +24,5 @@ Rails.application.routes.draw do
 
   # appointments
   get '/appointments/:id/edit_attention', to: 'appointments#edit_attention', as: :edit_attention
-  patch '/appointments/:id/:personnel_id', to: 'appointments#attended', as: :attended
+  patch '/appointments/:id/:personnel_id', to: 'appointments#attend', as: :attended
 end

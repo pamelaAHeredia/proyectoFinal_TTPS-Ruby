@@ -16,7 +16,7 @@ class User < ApplicationRecord
    
   def assign_role(role)
     if role.blank?
-      add_role :client
+      add_role :customer
     else
       add_role role
     end
@@ -30,8 +30,16 @@ class User < ApplicationRecord
     id == Current.user.id
   end
 
-  def branch?
-    branch_id == Current.user.branch_id unless branch_id.blank?
+  def customer?
+    has_role? :customer
+  end
+
+  def admin?
+    has_role? :admin
+  end
+
+  def bank_staff?
+    has_role? :bank_staff
   end
   
   private

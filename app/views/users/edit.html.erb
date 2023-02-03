@@ -22,7 +22,7 @@
             options_for_select(get_roles, @user.roles[0]) %>
         </div>
       </div>
-      <% if @user.has_role? :bank_staff %>
+      <% if @user.bank_staff? %>
       <div>
         <%= f.label :Roles, 'Cambiar sucursal' %><br>
         <%= f.collection_select :branch_id, Branch.all.order(name: :asc), :id, :name %>

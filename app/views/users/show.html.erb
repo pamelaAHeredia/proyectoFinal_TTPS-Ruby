@@ -1,28 +1,68 @@
 <div class="container">
-  <h1 class="display-3 text-center">Datos de Usuario</h1>
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Usuario</th>
-        <th scope="col">Email</th>
-        <% if !@user.branch_id.blank? %>
-        <th scope="col">Sucursal ID</th>
-        <% end %>
-        <th scope="col">Rol</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th><%= @user.id %></th>
-        <td><%= @user.username %></td>
-        <td><%= @user.email %></td>
-        <% if !@user.branch_id.blank? %>
-        <td><%= @user.branch_id %></td>
-        <% end %>
-        <td><%= Role.roles[@user.roles.pluck(:name)[0]] %></td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="row">
+    <h1 class="display-3 text-center">Datos de Usuario</h1>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Usuario</th>
+          <th scope="col">Email</th>
+          <% if !@user.branch_id.blank? %>
+            <th scope="col">Sucursal ID</th>
+          <% end %>
+          <th scope="col">Rol</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th><%= @user.id %></th>
+          <td><%= @user.username %></td>
+          <td><%= @user.email %></td>
+          <% if !@user.branch_id.blank? %>
+            <td><%= @user.branch_id %></td>
+          <% end %>
+          <td><%= Role.roles[@user.roles.pluck(:name)[0]] %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <% if !Current.user.customer? and @user.customer? %>
+    <div class="row">
+      <% if @user.appointments.length > 0 %>
+        <h1 class="display-3 text-center">Turnos</h1>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Fecha</th>
+              <th scope="col">Hora</th>
+              <th scope="col">Sucursal ID</th>
+              <th scope="col">Estado</th>
+              <th scope="col">Empleado ID</th>
+              <th scope="col">Comentario asociado</th>
+            </tr>
+          </thead>
+          <%- @user.appointments.each do |appointment|%>
+            <tbody>
+              <tr>
+                <th><%= appointment.date %></th>
+                <td><%= appointment.time.strftime("%k:%M") %></td>
+                <td><%= appointment.branch_id %></td>
+                <td><%= Appointment.statuses[appointment.status] %></td>
+                <% if !appointment.pending? %>
+                  <td><%= appointment.personnel_id %></td>
+                  <td><%= appointment.comment %></td>
+                <% else %>
+                  <td></td>
+                  <td></td>
+                <% end %>
+              </tr>
+            </tbody>
+          <% end %>
+        </table>
+      <% else %>
+        <h3>No hay turnos para mostrar</h3>
+      <% end %>
+    </div>
+  <% end %>
   <div><%= link_to 'volver', users_path %></div>
 </div>

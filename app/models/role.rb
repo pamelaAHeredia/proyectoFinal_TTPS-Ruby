@@ -13,6 +13,6 @@ class Role < ApplicationRecord
 
   enum :roles,
        admin: 'Administrador',
-       client: 'Cliente',
+       customer: 'Cliente',
        bank_staff: 'Personal bancario'
 end

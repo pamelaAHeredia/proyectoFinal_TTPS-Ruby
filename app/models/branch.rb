@@ -17,8 +17,13 @@ class Branch < ApplicationRecord
                         }
 
   belongs_to :locality
-  has_many :schedules
-  has_many :appointments, dependent: :restrict_with_exception
-  has_many :users 
+  has_many :schedules, dependent: :destroy
+  has_many :appointments
+  has_many :users
+
+
+  def pending_appointments?
+    appointments.any? { |e| e.pending? }
+  end
 
 end

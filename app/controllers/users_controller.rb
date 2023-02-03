@@ -3,9 +3,9 @@ class UsersController < ApplicationController
   before_action :authorize!, only: %i[index]
 
   def index
-    if Current.user.has_role? :bank_staff
-      @users = User.with_role(:client)
-    elsif Current.user.has_role? :admin
+    if Current.user.bank_staff?
+      @users = User.with_role(:customer)
+    elsif Current.user.admin?
       @users = User.all
     end
   end
@@ -20,15 +20,19 @@ class UsersController < ApplicationController
 
   def update
     authorize! @user
-    @user.username = user_params[:username]
-    @user.email = user_params[:email]
-    @user.branch_id = user_params[:branch_id]
-    if @user.save
-      @user.update_role(user_params[:roles])
-      redirect_to @user, notice: 'Usuario actualizado!'
-    else
-      # redirect_to edit_user_path(@user), alert: 'No se pudo actualizar el usuario.'
-      render :edit, status: :unprocessable_entity
+    if @user.id != 1
+      @user.username = user_params[:username]
+      @user.email = user_params[:email]
+      @user.branch_id = user_params[:branch_id]
+      if @user.update
+        @user.update_role(user_params[:roles])
+        redirect_to @user, notice: 'Usuario actualizado!'
+      else
+        # redirect_to edit_user_path(@user), alert: 'No se pudo actualizar el usuario.'
+        render :edit, status: :unprocessable_entity
+      end
+    else 
+      redirect_to @user, notice: 'No es posible modificar los datos este administrador.'
     end
   end
 

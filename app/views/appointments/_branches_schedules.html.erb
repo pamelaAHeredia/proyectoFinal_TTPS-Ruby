@@ -1,0 +1,35 @@
+<h1>Sucursales y horarios</h1>
+    <%- Branch.all.each do |branch| %>
+      <div class="row d-flex flex-wrap" id="branches">
+        <%#  %>
+        <p>
+          <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#m<%= branch.id %>" aria-expanded="false" aria-controls="collapseExample">
+            <%= branch.name %>
+          </button>
+        </p>
+        <div class="collapse" id="m<%= branch.id %>">
+          <div class="card card-body">
+            <%#  %>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Día</th>
+                  <th scope="col">Hora Apertura</th>
+                  <th scope="col">Hora Cierre</th>
+                </tr>
+              </thead>
+              <%- branch.schedules.each do |schedule|%>
+                <tbody>
+                  <tr>
+                    <th scope="row"><%= Schedule.days[schedule.day] %></th>
+                    <td><%= schedule.start_time.strftime("%k:%M") %></td>
+                    <td><%= schedule.end_time.strftime("%k:%M") %></td>
+                  </tr>
+                </tbody>
+              <% end %>
+            </table>
+            <%#  %>
+          </div>
+        </div>
+      </div>
+    <% end%>
