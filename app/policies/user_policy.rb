@@ -15,7 +15,7 @@ class UserPolicy < BasePolicy
   end
 
   def show
-    record.owner? || (record.customer? && !Current.user.customer?)
+    record.owner? || (record.customer? && !Current.user.customer?) || Current.user.admin?
   end
 
   def edit

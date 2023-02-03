@@ -16,6 +16,6 @@ class Auth::SessionsController < ApplicationController
 
   def destroy
     session.delete(:user_id)
-    redirect_to new_session_path, notice: 'Baaai!'
+    redirect_to new_session_path, notice: 'Sesión finalizada!'
   end
 end

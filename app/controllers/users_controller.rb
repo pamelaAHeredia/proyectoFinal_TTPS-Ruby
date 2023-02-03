@@ -23,16 +23,19 @@ class UsersController < ApplicationController
     if @user.id != 1
       @user.username = user_params[:username]
       @user.email = user_params[:email]
-      @user.branch_id = user_params[:branch_id]
-      if @user.update
+      if user_params[:roles] == 'bank_staff'
+        @user.branch_id = user_params[:branch_id]
+      else
+        @user.branch_id = nil
+      end
+      if @user.save
         @user.update_role(user_params[:roles])
         redirect_to @user, notice: 'Usuario actualizado!'
       else
-        # redirect_to edit_user_path(@user), alert: 'No se pudo actualizar el usuario.'
         render :edit, status: :unprocessable_entity
       end
     else 
-      redirect_to @user, notice: 'No es posible modificar los datos este administrador.'
+      redirect_to @user, notice: 'No es posible modificar los datos de este administrador.'
     end
   end
 

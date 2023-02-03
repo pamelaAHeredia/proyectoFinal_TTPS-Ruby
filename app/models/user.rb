@@ -9,8 +9,7 @@ class User < ApplicationRecord
                          with: /\A[a-z0-9A-Z]+\z/,
                          message: :invalid
                        }
-  validates :password, length: { minimum: 6 }
-
+ 
   has_many :appointments
   belongs_to :branch, optional: true
    
