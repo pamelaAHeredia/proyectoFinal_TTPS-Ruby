@@ -1,8 +1,10 @@
 class AppointmentsController < ApplicationController
   before_action :set_appointment, only: %i[show edit update destroy attend edit_attention]
   before_action :authorize!, only: %i[new create edit_attention]
+  before_action :statuses, only: %i[show index filter]
+  before_action :branches, :days, only: %i[new edit]
 
-  def index
+  def index;
     @appointments = if Current.user.customer?
                       Appointment.where(user_id: Current.user.id)
                     elsif Current.user.bank_staff?
@@ -12,7 +14,7 @@ class AppointmentsController < ApplicationController
                     end
   end
   
-  def filter
+  def filter;
     status = appointment_params[:status]
     if status == 'all'
       @appointments = if Current.user.customer?
@@ -35,8 +37,6 @@ class AppointmentsController < ApplicationController
 
   def new
     @appointment = Appointment.new
-    @branches = Branch.all
-    @days = Schedule.days
   end
 
   def create
@@ -52,8 +52,6 @@ class AppointmentsController < ApplicationController
 
   def edit
     authorize! @appointment
-    @branches = Branch.all
-    @days = Schedule.days
   end
 
   def update
@@ -67,7 +65,7 @@ class AppointmentsController < ApplicationController
 
   def destroy
     authorize! @appointment
-    if @appointment.pending? && @appointment.available?
+    if @appointment.pending? && @appointment.available? || Current.user.admin?
       @appointment.destroy
       return redirect_to appointments_path, notice: 'Turno Cancelado.'
     end
@@ -98,5 +96,17 @@ class AppointmentsController < ApplicationController
 
   def set_appointment
     @appointment = Appointment.find params[:id]
+  end
+
+  def statuses
+    @statuses = Appointment.statuses
+  end
+
+  def branches
+    @branches = Branch.all
+  end
+
+  def days
+    @days = Schedule.days
   end
 end

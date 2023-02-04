@@ -19,14 +19,18 @@ class Auth::UsersController < ApplicationController
     end
 
     @user = user
-    return redirect_to new_session_path, notice: 'Usuario creado' if @user.save
-
+    if @user.save
+      if Current.user
+        return redirect_to users_path, notice: 'Usuario creado'
+      else
+        return redirect_to new_session_path, notice: 'Usuario creado'
+      end
+    end
     render :new, status: :unprocessable_entity
   end
 
   private
 
-  # paràmetros fuertes
   def user_params
     params.require(:user).permit(:username, :email, :password, :roles, :branch_id)
   end

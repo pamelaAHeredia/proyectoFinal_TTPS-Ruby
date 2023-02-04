@@ -12,7 +12,7 @@
             <th scope="col">Dirección</th>
             <th scope="col">Teléfono</th>
             <th scope="col">Localidad</th>
-            <% if Current.user.admin? %>
+            <% if @current_user.admin? %>
             <th scope="col">Acciones</th>
             <% end %>
           </tr>
@@ -23,8 +23,8 @@
             <td><%= @branch.name %></td>
             <td><%= @branch.address %></td>
             <td><%= @branch.telephone %></td>
-            <td><%= @branch.locality.name%></td>
-            <% if Current.user.admin? %>
+            <td><%= @branch.locality.name_province%></td>
+            <% if @current_user.admin? %>
             <td>
               <div class="dropdown">
                 <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -54,7 +54,7 @@
             <th scope="col">Día</th>
             <th scope="col">Hora de Apertura</th>
             <th scope="col">Hora de Cierre</th>
-            <% if Current.user.admin? %>
+            <% if @current_user.admin? %>
             <th scope="col">Acciones</th>
             <% end %>
           </tr>
@@ -66,7 +66,7 @@
               <td><%= @days[schedule.day] %></td>
               <td><%= schedule.start_time.strftime("%k:%M") %></td>
               <td><%= schedule.end_time.strftime("%k:%M") %></td>
-              <% if Current.user.admin? %>
+              <% if @current_user.admin? %>
               <td>
                 <div class="dropdown">
                   <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -85,7 +85,7 @@
       </table>
     </div>
   </div>
-  <% if Current.user.admin? %>
+  <% if @current_user.admin? %>
   <div class="row">
     <h2>Agregar Horario:</h2>
     <%= form_for([@branch, @branch.schedules.build]) do |f| %>

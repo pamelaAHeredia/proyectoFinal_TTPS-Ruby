@@ -39,7 +39,7 @@
           <td><%= appointment.date %></td>
           <td><%= appointment.time.strftime("%k:%M") %></td>
           <td><%= appointment.motive %></td>
-          <td><%= Appointment.statuses[appointment.status] %></td>
+          <td><%= @statuses[appointment.status] %></td>
           <td><%= appointment.personnel_id %></td>
           <% if !appointment.comment.blank? %>
           <td><%= appointment.comment %></td>
@@ -52,11 +52,11 @@
                 ver Acciones
               </a>
               <ul class="dropdown-menu">
-              <%if !Current.user.bank_staff? %>
+              <%if !@current_user.bank_staff? %>
                 <li><a class="dropdown-item"><%= link_to 'Cancelar', appointment, method: :delete, data: { confirm: 'Estás seguro de que deseas cancelarlo?'} %></a></li>
                 <li><a class="dropdown-item"><%= link_to 'Editar', edit_appointment_path(appointment) %></a></li>
               <% end %>
-                <li><a class="dropdown-item"><%= link_to 'Marcar Atendido', edit_attention_path(appointment) if !Current.user.customer? %></a></li>    
+                <li><a class="dropdown-item"><%= link_to 'Marcar Atendido', edit_attention_path(appointment) if !@current_user.customer? %></a></li>    
               </ul>
             </div>
           </td>

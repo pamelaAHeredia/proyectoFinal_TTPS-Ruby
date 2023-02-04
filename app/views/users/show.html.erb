@@ -10,10 +10,10 @@
           <% if !@user.branch_id.blank? %>
             <th scope="col">Sucursal ID</th>
           <% end %>
-          <% if Current.user.admin?%>
+          <% if @current_user.admin?%>
           <th scope="col">Rol</th>
           <% end %>
-          <% if Current.user.admin? or Current.user.id == @user.id %>
+          <% if @current_user.admin? or @current_user.id == @user.id %>
           <th scope="col">Acciones</th>
           <% end %>
         </tr>
@@ -26,17 +26,17 @@
           <% if !@user.branch_id.blank? %>
             <td><%= @user.branch_id %></td>
           <% end %>
-          <% if Current.user.admin?%>
+          <% if @current_user.admin?%>
           <td><%= @roles[@user.roles.pluck(:name)[0]] %></td>
           <% end %>
-          <% if Current.user.admin? or Current.user.id == @user.id %>
+          <% if @current_user.admin? or @current_user.id == @user.id %>
           <td>
             <div class="dropdown">
               <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 ver Acciones
               </a>
               <ul class="dropdown-menu">
-                <% if Current.user.admin? %>
+                <% if @current_user.admin? %>
                   <li><a class="dropdown-item"><%= link_to 'Eliminar', @user, method: :delete, data: { confirm: 'Estás seguro de que deseas eliminarlo?'} %></a></li>
                 <% end %>
                 <li><a class="dropdown-item"><%= link_to 'Editar', edit_user_path(@user) %></a></li>
@@ -48,7 +48,7 @@
       </tbody>
     </table>
   </div>
-  <% if !Current.user.customer? and @user.customer? %>
+  <% if !@current_user.customer? and @user.customer? %>
     <div class="row">
       <% if @user.appointments.length > 0 %>
         <h1 class="display-3 text-center">Turnos</h1>
@@ -86,6 +86,6 @@
       <% end %>
     </div>
   <% end %>
-  <div><%= link_to 'volver', home_index_path if Current.user.customer? %></div>
-  <div><%= link_to 'volver', users_path if !Current.user.customer? %></div>
+  <div><%= link_to 'volver', home_index_path if @current_user.customer? %></div>
+  <div><%= link_to 'volver', users_path if !@current_user.customer? %></div>
 </div>

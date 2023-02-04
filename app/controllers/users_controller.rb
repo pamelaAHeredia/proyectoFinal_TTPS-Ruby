@@ -1,9 +1,9 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[show edit update destroy edit_password update_password]
   before_action :authorize!, only: %i[index]
+  before_action :roles, only: %i[index show]
 
   def index
-    @roles = Role.roles
     if Current.user.bank_staff?
       @users = User.with_role(:customer)
     elsif Current.user.admin?
@@ -13,7 +13,6 @@ class UsersController < ApplicationController
 
   def show
     authorize! @user
-    @roles = Role.roles
     @statuses = Appointment.statuses
   end
 
@@ -98,4 +97,8 @@ class UsersController < ApplicationController
   def password_params
     params.require(:user).permit(:password, :new_password, :confirm_password)
   end
+
+  def roles 
+    @roles = Role.roles
+  end 
 end

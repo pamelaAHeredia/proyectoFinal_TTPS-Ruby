@@ -1,14 +1,14 @@
 class BranchesController < ApplicationController
   before_action :set_branch, only: %i[show edit update destroy]
   before_action :authorize!
+  before_action :localities, only: %i[new edit]
 
   def index
     @branches = Branch.all
   end
 
   def new
-    @branch = Branch.new
-    @localities = Locality.all
+    @branch = Branch.new;
   end
 
   def create
@@ -22,9 +22,7 @@ class BranchesController < ApplicationController
     @days = Schedule.days
   end
 
-  def edit
-    @localities = Locality.all
-  end
+  def edit; end
 
   def update
     return redirect_to branch_path, notice: 'La sucursal ha sido actualizada' if @branch.update branch_params
@@ -33,7 +31,6 @@ class BranchesController < ApplicationController
   end
 
   def destroy
-    # si no tiene turnos pendientes de atención
     if @branch.pending_appointments?
       redirect_to branches_path, alert: 'No se puede eliminar una sucursal con turnos pendientes de atención.'
     else
@@ -51,4 +48,9 @@ class BranchesController < ApplicationController
   def set_branch
     @branch = Branch.find params[:id]
   end
+
+  def localities
+    @localities = Locality.all
+  end
+
 end

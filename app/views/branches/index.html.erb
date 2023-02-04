@@ -8,7 +8,7 @@
         <th>Dirección</th>
         <th>Teléfono</th>
         <th>Localidad</th>
-        <% if Current.user.admin? %>
+        <% if @current_user.admin? %>
         <th>Acciones</th>
         <% end %>
       </tr>
@@ -20,8 +20,8 @@
           <td><%= branch.name %></td>
           <td><%= branch.address%></td>
           <td><%= branch.telephone %></td>
-          <td><%= branch.locality.name%></td>
-          <% if !Current.user.customer? %>
+          <td><%= branch.locality.name_province%></td>
+          <% if !@current_user.customer? %>
           <td>
             <div class="dropdown">
               <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -29,7 +29,7 @@
               </a>
               <ul class="dropdown-menu">
                 <li><a class="dropdown-item"><%= link_to 'Ver horarios', branch_path(branch) %></a></li>
-                <% if Current.user.admin?%>
+                <% if @current_user.admin?%>
                 <li><a class="dropdown-item"><%= link_to 'Editar', edit_branch_path(branch) %></a></li>
                 <li><a class="dropdown-item"><%= link_to 'Eliminar', branch, method: :delete, data: { confirm: 'Estás seguro de que deseas eliminarlo?'} %></a></li>
               <% end %>

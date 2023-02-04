@@ -30,7 +30,6 @@ class SchedulesController < ApplicationController
   end
 
   def destroy
-    # si no tiene turnos pendientes de atención
     @branch = Branch.find(@schedule.branch.id)
     @schedule.destroy
     redirect_to @branch, notice: 'Horario eliminado.'

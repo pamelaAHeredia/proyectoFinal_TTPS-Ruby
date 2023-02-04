@@ -8,10 +8,10 @@
                 <th>ID</th>
                 <th>Usuario</th>
                 <th>Email</th>
-                <% if Current.user.admin?%>
+                <% if @current_user.admin?%>
                 <th>Rol</th>
                 <% end %>
-                <% if !Current.user.customer? %>
+                <% if !@current_user.customer? %>
                 <th>Sucursal ID</th>
                 <th>Acciones</th>
                 <% end %>
@@ -23,10 +23,10 @@
                 <th><%= user.id %></th>
                 <td><%= user.username %></td>
                 <td> <%= user.email %></td>
-                <% if Current.user.admin?%>
+                <% if @current_user.admin?%>
                 <td> <%= @roles[user.roles.pluck(:name)[0]] %> </td>
                 <% end %>
-                <% if !Current.user.customer? %>
+                <% if !@current_user.customer? %>
                 <td> <%= user.branch_id if !user.branch_id.blank? %></td>
                 <td>
                     <div class="dropdown">
@@ -36,7 +36,7 @@
 
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item"><%= link_to 'Ver usuario', user_path(user) %></a></li>
-                            <% if Current.user.admin? %>
+                            <% if @current_user.admin? %>
                             <li><a class="dropdown-item"><%= link_to 'Editar', edit_user_path(user) %></a></li>
                             <li><a class="dropdown-item"><%= link_to 'Eliminar', user, method: :delete, data: { confirm: 'Estás seguro de que deseas eliminarlo?'} %></a></li>
                             <% end %>

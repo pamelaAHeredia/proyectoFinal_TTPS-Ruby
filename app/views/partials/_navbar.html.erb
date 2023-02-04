@@ -9,23 +9,23 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="/">Home</a>
         </li>
-        <% if Current.user %>
+        <% if @current_user %>
           <li class="nav-item disabled">
-            <a class="nav-link">Hola, <%= Current.user.username %>!</a>
+            <a class="nav-link">Hola, <%= @current_user.username %>!</a>
           </li>
-          <% if !Current.user.customer? %>
+          <% if !@current_user.customer? %>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Usuarios
               </a>
               <ul class="dropdown-menu">
-                <% if !Current.user.bank_staff? %>
+                <% if !@current_user.bank_staff? %>
                   <li><a class="dropdown-item" href="/users/new">Nuevo usuario</a></li>
                 <% end %>
                 <li><a class="dropdown-item" href="/users">ver todos</a></li>
               </ul>
             </li>
-            <% if !Current.user.bank_staff? %>
+            <% if !@current_user.bank_staff? %>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Localidades
@@ -41,7 +41,7 @@
                 Sucursales
               </a>
               <ul class="dropdown-menu">
-                <% if Current.user.admin? %>
+                <% if @current_user.admin? %>
                   <li><a class="dropdown-item" href="/branches/new">Nueva sucursal</a></li>
                 <% end %>
                 <li><a class="dropdown-item" href="/branches">ver todas</a></li>
@@ -53,7 +53,7 @@
               Turnos
             </a>
             <ul class="dropdown-menu">
-              <% if !Current.user.bank_staff? %>
+              <% if !@current_user.bank_staff? %>
                 <li><a class="dropdown-item" href="/appointments/new">Nuevo turno</a></li>
               <% end %>
               <li><a class="dropdown-item" href="/appointments">Ver turnos</a></li>
@@ -64,14 +64,14 @@
               Mi perfil
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item"><%= link_to 'Ver mis datos', user_path(Current.user.id)%></a></li>
-              <li><a class="dropdown-item"><%= link_to 'Cambiar mi contraseña', edit_password_path(Current.user.id) %></a></li>
+              <li><a class="dropdown-item"><%= link_to 'Ver mis datos', user_path(@current_user.id)%></a></li>
+              <li><a class="dropdown-item"><%= link_to 'Cambiar mi contraseña', edit_password_path(@current_user.id) %></a></li>
             </ul>
           </li>
-          <a class="nav-link active" aria-current="page"><%= link_to 'cerrar sesión', session_path(Current.user.id),
+          <a class="nav-link active" aria-current="page"><%= link_to 'cerrar sesión', session_path(@current_user.id),
                 method: :delete, data: { confirm: 'Estás seguro de que deseas cerrar la sesión?'} %>
           </a>
-          <% if !Current.user.customer? %>
+          <% if !@current_user.customer? %>
           <li class="nav-item">
             <%= form_for :user,:url => users_search_path, :method => :post do |f| %>
               <%= f.text_field :username, :placeholder => 'Nombre usuario', class:'form-control me-2'%>
