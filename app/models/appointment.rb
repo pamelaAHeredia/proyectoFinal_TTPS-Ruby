@@ -1,7 +1,6 @@
 class Appointment < ApplicationRecord
-  validates :date, presence: true
-  validates :time, presence: true
-  validate :date_time_check
+  validates :date, :time, :motive, presence: true
+  # validate :date_time_check
 
   belongs_to :user
   belongs_to :personnel, class_name: 'User', optional: true

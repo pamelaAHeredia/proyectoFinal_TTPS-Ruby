@@ -8,7 +8,9 @@
                 <th>ID</th>
                 <th>Usuario</th>
                 <th>Email</th>
+                <% if Current.user.admin?%>
                 <th>Rol</th>
+                <% end %>
                 <% if !Current.user.customer? %>
                 <th>Sucursal ID</th>
                 <th>Acciones</th>
@@ -21,7 +23,9 @@
                 <th><%= user.id %></th>
                 <td><%= user.username %></td>
                 <td> <%= user.email %></td>
+                <% if Current.user.admin?%>
                 <td> <%= Role.roles[user.roles.pluck(:name)[0]] %> </td>
+                <% end %>
                 <% if !Current.user.customer? %>
                 <td> <%= user.branch_id if !user.branch_id.blank? %></td>
                 <td>

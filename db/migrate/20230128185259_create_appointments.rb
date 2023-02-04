@@ -14,7 +14,7 @@ class CreateAppointments < ActiveRecord::Migration[7.0]
 
       t.timestamps
     end
-    # falta clave primaria sucursal + día + hora + id_user
+    # falta clave primaria sucursal + fecha + hora 
     add_index :appointments, %i[branch_id date time], unique: true
   end
 end

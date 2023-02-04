@@ -16,6 +16,8 @@ Rails.application.routes.draw do
   # users - password
   get '/users/:id/edit_password', to: 'users#edit_password', as: :edit_password
   patch '/users/:id/edit_password', to: 'users#update_password', as: :update_password
+  post '/users/search', to: 'users#search', as: :users_search
+ 
 
   # branches -schedules
   resources :branches do
@@ -25,4 +27,5 @@ Rails.application.routes.draw do
   # appointments
   get '/appointments/:id/edit_attention', to: 'appointments#edit_attention', as: :edit_attention
   patch '/appointments/:id/:personnel_id', to: 'appointments#attend', as: :attended
+  post '/appointments/filter', to: 'appointments#filter', as: :appointments_filter
 end

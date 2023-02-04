@@ -12,7 +12,9 @@
             <th scope="col">Dirección</th>
             <th scope="col">Teléfono</th>
             <th scope="col">Localidad</th>
+            <% if Current.user.admin? %>
             <th scope="col">Acciones</th>
+            <% end %>
           </tr>
         </thead>
         <tbody>
@@ -22,6 +24,7 @@
             <td><%= @branch.address %></td>
             <td><%= @branch.telephone %></td>
             <td><%= @branch.locality.name%></td>
+            <% if Current.user.admin? %>
             <td>
               <div class="dropdown">
                 <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -33,6 +36,7 @@
                 </ul>
               </div>
             </td>
+            <% end %>
           </tr>
         </tbody>
       </table>
@@ -50,7 +54,9 @@
             <th scope="col">Día</th>
             <th scope="col">Hora de Apertura</th>
             <th scope="col">Hora de Cierre</th>
+            <% if Current.user.admin? %>
             <th scope="col">Acciones</th>
+            <% end %>
           </tr>
         </thead>
         <%- @branch.schedules.each do |schedule| %>
@@ -60,6 +66,7 @@
               <td><%= Schedule.days[schedule.day] %></td>
               <td><%= schedule.start_time.strftime("%k:%M") %></td>
               <td><%= schedule.end_time.strftime("%k:%M") %></td>
+              <% if Current.user.admin? %>
               <td>
                 <div class="dropdown">
                   <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -71,12 +78,14 @@
                   </ul>
                 </div>
               </td>
+              <% end %>
             </tr>
           </tbody>
         <% end %>
       </table>
     </div>
   </div>
+  <% if Current.user.admin? %>
   <div class="row">
     <h2>Agregar Horario:</h2>
     <%= form_for([@branch, @branch.schedules.build]) do |f| %>
@@ -103,5 +112,6 @@
       </div>
     <% end %>
   </div>
-  <div><%= link_to t('common.volver'), branches_path %></div>
+  <% end %>
+  <div><%= link_to 'volver', branches_path %></div>
 </div>

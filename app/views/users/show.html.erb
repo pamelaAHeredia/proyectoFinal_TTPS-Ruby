@@ -10,8 +10,12 @@
           <% if !@user.branch_id.blank? %>
             <th scope="col">Sucursal ID</th>
           <% end %>
+          <% if Current.user.admin?%>
           <th scope="col">Rol</th>
+          <% end %>
+          <% if Current.user.admin? or Current.user.id == @user.id %>
           <th scope="col">Acciones</th>
+          <% end %>
         </tr>
       </thead>
       <tbody>
@@ -22,7 +26,10 @@
           <% if !@user.branch_id.blank? %>
             <td><%= @user.branch_id %></td>
           <% end %>
+          <% if Current.user.admin?%>
           <td><%= Role.roles[@user.roles.pluck(:name)[0]] %></td>
+          <% end %>
+          <% if Current.user.admin? or Current.user.id == @user.id %>
           <td>
             <div class="dropdown">
               <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -36,6 +43,7 @@
               </ul>
             </div>
           </td>
+          <% end %>
         </tr>
       </tbody>
     </table>
@@ -78,5 +86,6 @@
       <% end %>
     </div>
   <% end %>
-  <div><%= link_to 'volver', users_path %></div>
+  <div><%= link_to 'volver', home_index_path if Current.user.customer? %></div>
+  <div><%= link_to 'volver', users_path if !Current.user.customer? %></div>
 </div>
