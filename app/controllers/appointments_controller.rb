@@ -4,7 +4,7 @@ class AppointmentsController < ApplicationController
   before_action :statuses, only: %i[show index filter]
   before_action :branches, :days, only: %i[new edit]
 
-  def index;
+  def index
     @appointments = if Current.user.customer?
                       Appointment.where(user_id: Current.user.id)
                     elsif Current.user.bank_staff?
@@ -14,7 +14,7 @@ class AppointmentsController < ApplicationController
                     end
   end
   
-  def filter;
+  def filter
     status = appointment_params[:status]
     if status == 'all'
       @appointments = if Current.user.customer?
