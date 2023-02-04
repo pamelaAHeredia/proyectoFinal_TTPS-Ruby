@@ -2,6 +2,7 @@ class Auth::UsersController < ApplicationController
   skip_before_action :protect_pages
 
   def new
+    @branches = Branch.all
     @user = User.new
   end
 

@@ -22,7 +22,7 @@
       <div>
         <p>*La sucursal es sólo para los usuarios con rol "personal bancario"</p>
         <%= f.label :Sucursal %><br>
-        <%= f.collection_select :branch_id, Branch.all.order(name: :asc), :id, :name %>
+        <%= f.collection_select :branch_id, @branches, :id, :name %>
       </div>
     <% else %>
       <div>
