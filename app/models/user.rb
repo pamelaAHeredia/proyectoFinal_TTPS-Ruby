@@ -41,7 +41,7 @@ class User < ApplicationRecord
     has_role? :bank_staff
   end
 
-  def get_role
+  def role
     if admin?
       :admin
     elsif bank_staff?

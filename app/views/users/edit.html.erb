@@ -20,7 +20,7 @@
           <div>
             <%= f.label :role, 'Cambiar rol' %><br>
             <%= f.select :roles, 
-              options_for_select(get_roles, @user.get_role) %>
+              options_for_select(get_roles, @user.role) %>
           </div>
         </div>
         <div>
