@@ -9,20 +9,20 @@ class User < ApplicationRecord
                          with: /\A[a-z0-9A-Z]+\z/,
                          message: :invalid
                        }
- 
-  has_many :appointments
+
+  has_many :appointments, dependent: :destroy
   belongs_to :branch, optional: true
-   
+
+  def new_bank_staff?
+    :roles == 'Personal Bancario'
+  end
+
   def assign_role(role)
     if role.blank?
       add_role :customer
     else
       add_role role
     end
-  end
-
-  def update_role(role)
-    add_role role
   end
 
   def owner?
@@ -40,11 +40,20 @@ class User < ApplicationRecord
   def bank_staff?
     has_role? :bank_staff
   end
-  
+
+  def get_role
+    if admin?
+      :admin
+    elsif bank_staff?
+      :bank_staff
+    else
+      :customer
+    end
+  end
+
   private
 
   def before_add_method(_role)
     self.roles = []
   end
-
 end

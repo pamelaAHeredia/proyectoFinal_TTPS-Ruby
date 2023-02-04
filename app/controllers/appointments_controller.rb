@@ -13,7 +13,7 @@ class AppointmentsController < ApplicationController
   end
   
   def filter
-    status = filter_params[:status]
+    status = appointment_params[:status]
     if status == 'all'
       p status
       @appointments = if Current.user.customer?
@@ -43,7 +43,8 @@ class AppointmentsController < ApplicationController
     @appointment.status = :pending
     return redirect_to appointments_path, notice: 'Turno creado con éxito.' if @appointment.save
 
-    redirect_to appointments_path(@appointments), alert: 'No se pudo crear el turno.'
+    redirect_to appointments_path(@appointments), alert: 'No se pudo crear el turno. Verifique que horario elegido e ingrese sólo letras y números.'
+    # render :new, status: :unprocessable_entity
   end
 
   def show; end
@@ -77,7 +78,7 @@ class AppointmentsController < ApplicationController
   def attend
     authorize! @appointment
     @appointment.status = :attended
-    @appointment.comment = attention_params[:comment]
+    @appointment.comment = appointment_params[:comment]
     @appointment.personnel_id = params.require(:personnel_id)
     if @appointment.save
       return redirect_to appointments_path,
@@ -89,15 +90,7 @@ class AppointmentsController < ApplicationController
   private
 
   def appointment_params
-    params.require(:appointment).permit(:date, :time, :user_id, :branch_id, :motive)
-  end
-
-  def attention_params
-    params.require(:appointment).permit(:comment)
-  end
-
-  def filter_params
-    params.require(:appointment).permit(:status)
+    params.require(:appointment).permit(:date, :time, :user_id, :branch_id, :motive, :comment, :status)
   end
 
   def set_appointment

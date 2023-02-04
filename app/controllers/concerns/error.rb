@@ -3,7 +3,7 @@ module Error
 
   included do
     rescue_from ActiveRecord::RecordNotFound do
-      redirect_to home_index_path, alert: 'ups... no se encontró lo que estás buscando.'
+      redirect_to home_index_path, alert: 'ups... no se encontró la ruta que que estás buscando.'
     end
 
     rescue_from ActiveRecord::RecordNotUnique do

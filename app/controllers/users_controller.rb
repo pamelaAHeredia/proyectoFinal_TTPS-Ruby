@@ -23,18 +23,22 @@ class UsersController < ApplicationController
     if @user.id != 1
       @user.username = user_params[:username]
       @user.email = user_params[:email]
-      if user_params[:roles] == 'bank_staff'
-        @user.branch_id = user_params[:branch_id]
-      else
-        @user.branch_id = nil
+      if Current.user.admin?
+        if user_params[:roles] == 'bank_staff'
+          @user.branch_id = user_params[:branch_id]
+        else
+          @user.branch_id = nil
+        end
       end
       if @user.save
-        @user.update_role(user_params[:roles])
+        if Current.user.admin?
+          @user.add_role user_params[:roles]
+        end
         redirect_to @user, notice: 'Usuario actualizado!'
       else
         render :edit, status: :unprocessable_entity
       end
-    else 
+    else
       redirect_to @user, notice: 'No es posible modificar los datos de este administrador.'
     end
   end
@@ -70,9 +74,8 @@ class UsersController < ApplicationController
 
   def search
     @user = User.where(username: user_params[:username])
-    p @user.ids 
     if @user != []
-      return redirect_to ({ action: "show", id: @user.ids })
+      return redirect_to({ action: 'show', id: @user.ids })
     else
       redirect_to users_path, alert: 'usuario no encontrado'
     end

@@ -1,6 +1,12 @@
 class Appointment < ApplicationRecord
-  validates :date, :time, :motive, presence: true
-  # validate :date_time_check
+  validates :date, :time, presence: true
+  validate :date_time_check
+
+  validates :motive, presence: true,
+                     format: {
+                       with: /\A[a-z0-9A-Zñáéíóúü\s]+\z/,
+                       message: "Ingrese sólo letras y números."
+                     }
 
   belongs_to :user
   belongs_to :personnel, class_name: 'User', optional: true

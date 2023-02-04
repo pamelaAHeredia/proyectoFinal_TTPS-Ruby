@@ -18,7 +18,6 @@ Rails.application.routes.draw do
   patch '/users/:id/edit_password', to: 'users#update_password', as: :update_password
   post '/users/search', to: 'users#search', as: :users_search
  
-
   # branches -schedules
   resources :branches do
     resources :schedules

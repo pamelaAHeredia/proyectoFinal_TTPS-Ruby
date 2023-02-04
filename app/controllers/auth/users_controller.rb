@@ -19,7 +19,7 @@ class Auth::UsersController < ApplicationController
     end
 
     @user = user
-    return redirect_to users_path, notice: 'Usuario creado' if @user.save
+    return redirect_to new_session_path, notice: 'Usuario creado' if @user.save
 
     render :new, status: :unprocessable_entity
   end

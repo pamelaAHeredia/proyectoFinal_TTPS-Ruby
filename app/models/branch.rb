@@ -2,12 +2,12 @@ class Branch < ApplicationRecord
 
   validates :name, presence: true, uniqueness: true, length: { in: 3..30 },
                    format: {
-                     with: /\A[a-z0-9A-Zñáéíóú\s]+\z/,
+                     with: /\A[a-z0-9A-Zñáéíóúü\s]+\z/,
                      message: :invalid
                    }
   validates :address, presence: true,
                       format: {
-                        with: /\A[a-z0-9A-Zñáéíóú\s]+\z/,
+                        with: /\A[a-z0-9A-Zñáéíóúü\s]+\z/,
                         message: :invalid
                       }
   validates :telephone, presence: true, length: { minimum: 10 },
