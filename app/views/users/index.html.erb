@@ -12,7 +12,7 @@
                 <th>Rol</th>
                 <% end %>
                 <% if !@current_user.customer? %>
-                <th>Sucursal ID</th>
+                <th>Sucursal</th>
                 <th>Acciones</th>
                 <% end %>
             </tr>
@@ -27,7 +27,7 @@
                 <td> <%= @roles[user.roles.pluck(:name)[0]] %> </td>
                 <% end %>
                 <% if !@current_user.customer? %>
-                <td> <%= user.branch_id if !user.branch_id.blank? %></td>
+                <td> <%= user.branch_name if !user.branch_id.blank? %></td>
                 <td>
                     <div class="dropdown">
                         <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">

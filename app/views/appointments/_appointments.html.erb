@@ -35,15 +35,17 @@
       <tbody>
         <tr>
           <th><%= appointment.id %></th>
-          <td><%= appointment.branch_id %></td>
+          <td><%= appointment.branch_name %></td>
           <td><%= appointment.date %></td>
           <td><%= appointment.time.strftime("%k:%M") %></td>
           <td><%= appointment.motive %></td>
           <td><%= @statuses[appointment.status] %></td>
-          <td><%= appointment.personnel_id %></td>
           <% if !appointment.comment.blank? %>
+          <td><%= appointment.personnel_username %></td>
+          
           <td><%= appointment.comment %></td>
           <% else %>
+          <td></td>
           <td></td>
           <% end %>
           <td>

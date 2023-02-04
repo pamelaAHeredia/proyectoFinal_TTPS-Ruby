@@ -50,6 +50,9 @@ class User < ApplicationRecord
       :customer
     end
   end
+  def branch_name
+    Branch.find_by_id(branch_id).name
+  end
 
   private
 

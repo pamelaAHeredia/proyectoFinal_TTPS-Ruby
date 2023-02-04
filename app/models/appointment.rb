@@ -27,6 +27,14 @@ class Appointment < ApplicationRecord
     date > DateTime.now.to_date
   end
 
+  def branch_name
+    Branch.find_by_id(branch_id).name
+  end
+
+  def personnel_username
+    User.find_by_id(personnel_id).username
+  end
+
   def date_time_check
     hour = time.strftime('%H:%M:%S')
 

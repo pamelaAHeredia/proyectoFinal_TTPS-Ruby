@@ -17,12 +17,12 @@
       <tbody>
         <tr>
           <th><%= @appointment.id %></th>
-          <td><%= @appointment.branch_id %></td>
+          <td><%= @appointment.branch_name %></td>
           <td><%= @appointment.date %></td>
           <td><%= @appointment.time.strftime("%k:%M") %></td>
           <td><%= @appointment.motive %></td>
           <td><%= @statuses[@appointment.status] %></td>
-          <td><%= @appointment.personnel_id %></td>
+          <td><%= @appointment.personnel_username %></td>
           <td>
             <div class="dropdown">
               <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">

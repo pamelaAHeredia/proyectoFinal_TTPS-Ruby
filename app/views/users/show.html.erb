@@ -24,7 +24,7 @@
           <td><%= @user.username %></td>
           <td><%= @user.email %></td>
           <% if !@user.branch_id.blank? %>
-            <td><%= @user.branch_id %></td>
+            <td><%= @user.branch_name %></td>
           <% end %>
           <% if @current_user.admin?%>
           <td><%= @roles[@user.roles.pluck(:name)[0]] %></td>
@@ -57,9 +57,9 @@
             <tr>
               <th scope="col">Fecha</th>
               <th scope="col">Hora</th>
-              <th scope="col">Sucursal ID</th>
+              <th scope="col">Sucursal </th>
               <th scope="col">Estado</th>
-              <th scope="col">Empleado ID</th>
+              <th scope="col">Empleado</th>
               <th scope="col">Comentario asociado</th>
             </tr>
           </thead>
@@ -68,10 +68,10 @@
               <tr>
                 <th><%= appointment.date %></th>
                 <td><%= appointment.time.strftime("%k:%M") %></td>
-                <td><%= appointment.branch_id %></td>
+                <td><%= appointment.branch_name %></td>
                 <td><%= @statuses[appointment.status] %></td>
                 <% if !appointment.pending? %>
-                  <td><%= appointment.personnel_id %></td>
+                  <td><%= appointment.personnel_username %></td>
                   <td><%= appointment.comment %></td>
                 <% else %>
                   <td></td>
