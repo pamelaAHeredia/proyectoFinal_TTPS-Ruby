@@ -15,7 +15,6 @@ class AppointmentsController < ApplicationController
   def filter
     status = appointment_params[:status]
     if status == 'all'
-      p status
       @appointments = if Current.user.customer?
                         Appointment.where(user_id: Current.user.id)
                       elsif Current.user.bank_staff?
@@ -36,6 +35,8 @@ class AppointmentsController < ApplicationController
 
   def new
     @appointment = Appointment.new
+    @branches = Branch.all
+    @days = Schedule.days
   end
 
   def create
@@ -51,6 +52,8 @@ class AppointmentsController < ApplicationController
 
   def edit
     authorize! @appointment
+    @branches = Branch.all
+    @days = Schedule.days
   end
 
   def update

@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   before_action :authorize!, only: %i[index]
 
   def index
+    @roles = Role.roles
     if Current.user.bank_staff?
       @users = User.with_role(:customer)
     elsif Current.user.admin?
@@ -12,10 +13,13 @@ class UsersController < ApplicationController
 
   def show
     authorize! @user
+    @roles = Role.roles
+    @statuses = Appointment.statuses
   end
 
   def edit
     authorize! @user
+    @branches = Branch.all
   end
 
   def update

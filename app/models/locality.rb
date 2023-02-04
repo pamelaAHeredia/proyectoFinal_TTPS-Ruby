@@ -32,4 +32,9 @@ class Locality < ApplicationRecord
        santiago_del_estero: 'Santiago del Estero',
        tierra_del_fuego: 'Tierra del Fuego',
        tucuman: 'Tucumán'
+
+  def name_province
+    "#{name}, #{Locality.provinces[province]}"
+  end
 end
+

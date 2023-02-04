@@ -8,6 +8,7 @@ class BranchesController < ApplicationController
 
   def new
     @branch = Branch.new
+    @localities = Locality.all
   end
 
   def create
@@ -17,9 +18,13 @@ class BranchesController < ApplicationController
     redirect_to branches_path, alert: 'No se pudo crear la sucursal.'
   end
 
-  def show; end
+  def show
+    @days = Schedule.days
+  end
 
-  def edit; end
+  def edit
+    @localities = Locality.all
+  end
 
   def update
     return redirect_to branch_path, notice: 'La sucursal ha sido actualizada' if @branch.update branch_params

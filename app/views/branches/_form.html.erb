@@ -19,7 +19,7 @@
     </div>
     <div>
       <%= f.label :Localidad %>
-      <%= f.collection_select :locality_id, Locality.all.order(name: :asc), :id, :name %>
+      <%= f.collection_select :locality_id, @localities, :id, :name_province %>
     </div>
     
     <div>
