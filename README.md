@@ -10,6 +10,8 @@
 
 *[Funcionalidades](#funcionalidades)
 
+*[Decisiones tomadas](#decisiones-tomadas)
+
 ## Descripción del proyecto
 
 - `Sistema de gestión de turnos para un banco`. 
@@ -54,3 +56,20 @@ Brinda la posibilidad de gestionar las sucursales, los horarios de atención, lo
 - `Gestión de horarios`: 
     - Los horarios sólo pueden ser creados, modificados y eliminados por un usuario con rol de administrador. 
     - Pueden ser visualizados junto a la sucursal correspondiente. 
+
+## Decisiones tomadas 
+
+- El administrador por defecto es el que tiene id 1. Este usuario no se puede eliminar desde la interfaz de usuario.
+
+- Para los comentarios y los motivos en los turnos, los nombres de las localidades y los nombres de usuario, decidí que sólo es posible ingresar letras, números, espacios, vocales con tilde y diéresis. No se admiten caracteres especiales. 
+
+- Para cancelar los turnos decidí hacer una borrado físico. 
+
+- El administrador puede eliminar turnos con fecha anterior a la actual y con estado 'Atendido'.
+
+- Los turnos pueden ser filtrados por estado. 
+ 
+- Los usuarios con rol de cliente pueden ver las sucursales con sus horarios. Pensé que, de momento, simplificaría un poco la tarea de sacar un turno. 
+
+
+
