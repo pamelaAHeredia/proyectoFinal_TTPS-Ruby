@@ -67,19 +67,7 @@ dom2 = Schedule.create(day: :sunday, start_time: '08:00', end_time: '12:00', bra
 dom3 = Schedule.create(day: :sunday, start_time: '12:00', end_time: '16:00', branch_id: b3.id)
 
 # Turnos
-# viejos no atendidos sucursal1
-Appointment.create(date: '2023-01-22', time: '16:00', motive: 'Operaciones de cajas', status: 'pending', user_id: u5.id, branch_id: b1.id)
-Appointment.create(date: '2023-01-22', time: '16:15', motive: 'Operaciones de cajas', status: 'pending', user_id: u6.id, branch_id: b1.id)
-# viejos no atendidos sucursal2
-Appointment.create(date: '2023-01-20', time: '12:00', motive: 'Operaciones de cajas', status: 'pending', user_id: u5.id, branch_id: b2.id)
-Appointment.create(date: '2023-01-20', time: '15:00', motive: 'Operaciones de cajas', status: 'pending', user_id: u7.id, branch_id: b2.id)
 
-# viejos y atendidos
-Appointment.create(date: '2023-01-23', time: '12:30', motive: 'Operaciones Comerciales', status: 'attended', user_id: u6.id, branch_id: b2.id, personnel_id: u2.id, comment:'Turno atendido')
-Appointment.create(date: '2023-01-21', time: '8:45', motive: 'Consultas', status: 'attended', user_id: u7.id, branch_id: b1.id, personnel_id: u1.id, comment:'Turno atendido')
-Appointment.create(date: '2023-01-21', time: '10:00', motive: 'Consultas', status: 'attended', user_id: u6.id, branch_id: b1.id, personnel_id: u1.id, comment:'Turno atendido')
-Appointment.create(date: '2023-01-21', time: '8:50', motive: 'Operaciones de cajas', status: 'attended', user_id: u5.id, branch_id: b3.id, personnel_id: u3.id, comment:'Turno atendido')
-Appointment.create(date: '2023-01-21', time: '8:55', motive: 'Operaciones de cajas', status: 'attended', user_id: u6.id, branch_id: b3.id, personnel_id: u3.id, comment:'Turno atendido')
 # turnos pendientes cliente1
 Appointment.create(date: '2023-02-15', time: '10:00', motive: 'Operaciones de cajas', status: 'pending', user_id: u5.id, branch_id: b1.id)
 Appointment.create(date: '2023-02-15', time: '13:00', motive: 'Gestión Comercial', status: 'pending', user_id: u5.id, branch_id: b2.id)
