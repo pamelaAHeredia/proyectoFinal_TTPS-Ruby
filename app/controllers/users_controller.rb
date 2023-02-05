@@ -42,15 +42,19 @@ class UsersController < ApplicationController
         render :edit, status: :unprocessable_entity
       end
     else
-      redirect_to @user, notice: 'No es posible modificar los datos de este administrador.'
+      redirect_to @user, alert: 'No es posible modificar los datos de este administrador.'
     end
   end
 
   def destroy
     authorize! @user
-    if @user.id != 1
-      @user.destroy
-      return redirect_to users_path, notice: 'El usuario ha sido eliminado.'
+    if @user.id != 1 
+      if @user.id != Current.user.id
+        @user.destroy
+        return redirect_to users_path, notice: 'El usuario ha sido eliminado.'
+      else
+        return redirect_to users_path, alert: 'No es posible eliminar su porpio usuario. Contáctese con otro administrador.'
+      end
     end
     redirect_to users_path, alert: 'No es posible eliminar al administrador.'
   end
