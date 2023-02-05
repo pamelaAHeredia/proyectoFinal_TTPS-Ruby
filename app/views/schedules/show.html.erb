@@ -3,7 +3,6 @@
   <table class="table">
     <thead>
       <tr>
-        <th scope="col">#</th>
         <th scope="col">Día de la semana</th>
         <th scope="col">Hora de inicio</th>
         <th scope="col">Hora de fin</th>
@@ -13,7 +12,6 @@
     </thead>
     <tbody>
       <tr>
-        <th><%= @schedule.id %></th>
         <td><%= Schedule.days[@schedule.day] %></td>
         <td><%= @schedule.start_time.strftime("%k:%M") %></td>
         <td><%= @schedule.end_time.strftime("%k:%M") %></td>

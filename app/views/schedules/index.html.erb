@@ -3,7 +3,6 @@
   <table class="table table-hover">
     <thead>
       <tr>
-        <th>ID</th>
         <th>Día de la semana</th>
         <th>Hora de inicio</th>
         <th>Hora de fin</th>
@@ -14,7 +13,6 @@
     <%- @schedules.each do |schedule| %>
       <tbody>
         <tr>
-        <th><%= schedule.id %></th>
         <td><%= Schedule.days[schedule.day] %></td>
         <td><%= schedule.start_time.strftime("%k:%M")  %></td>
         <td><%= schedule.end_time.strftime("%k:%M")  %></td>

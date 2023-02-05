@@ -3,7 +3,6 @@
   <table class="table table-hover">
     <thead>
       <tr>
-        <th>ID</th>
         <th>Nombre</th>
         <th>Provincia</th>
         <th>Acciones</th>
@@ -12,7 +11,6 @@
     <%- @localities.each do |locality| %>
       <tbody>
         <tr>
-          <th><%= locality.id %></th>
           <td><%= locality.name %></td>
           <td><%= @provinces[locality.province] %></td>
           <td>

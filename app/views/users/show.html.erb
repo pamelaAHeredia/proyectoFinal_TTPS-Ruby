@@ -4,7 +4,6 @@
     <table class="table">
       <thead>
         <tr>
-          <th scope="col">#</th>
           <th scope="col">Usuario</th>
           <th scope="col">Email</th>
           <% if !@user.branch_id.blank? %>
@@ -20,14 +19,13 @@
       </thead>
       <tbody>
         <tr>
-          <th><%= @user.id %></th>
           <td><%= @user.username %></td>
           <td><%= @user.email %></td>
           <% if !@user.branch_id.blank? %>
-          <td><%= @user.branch_name %></td>
+            <td><%= @user.branch_name %></td>
           <% end %>
           <% if !@current_user.customer?%>
-          <td><%= @roles[@user.roles.pluck(:name)[0]] %></td>
+            <td><%= @roles[@user.roles.pluck(:name)[0]] %></td>
           <% end %>
           <% if (!@current_user.bank_staff? and @current_user.id == @user.id) or @current_user.admin? %>
             <td>

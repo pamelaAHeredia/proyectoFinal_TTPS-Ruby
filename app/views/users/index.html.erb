@@ -5,12 +5,13 @@
     <table class="table table-hover">
         <thead>
             <tr>
-                <th>ID</th>
                 <th>Usuario</th>
                 <th>Email</th>
                 <% if !@current_user.customer?%>
                 <th>Rol</th>
+                <% if !@current_user.bank_staff?%>
                 <th>Sucursal</th>
+                <% end %>
                 <th>Acciones</th>
                 <% end %>
             </tr>
@@ -18,12 +19,13 @@
         <%- @users.each do |user| %>
         <tbody>  
             <tr>
-                <th><%= user.id %></th>
                 <td><%= user.username %></td>
                 <td> <%= user.email %></td>
                 <% if !@current_user.customer?%>
                 <td> <%= @roles[user.roles.pluck(:name)[0]] %> </td>
+                <% if !@current_user.bank_staff?%>
                 <td> <%= user.branch_name if !user.branch_id.blank? %></td>
+                <% end %>
                 <td>
                     <div class="dropdown">
                         <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
