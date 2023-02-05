@@ -8,10 +8,8 @@
                 <th>ID</th>
                 <th>Usuario</th>
                 <th>Email</th>
-                <% if @current_user.admin?%>
+                <% if !@current_user.customer?%>
                 <th>Rol</th>
-                <% end %>
-                <% if !@current_user.customer? %>
                 <th>Sucursal</th>
                 <th>Acciones</th>
                 <% end %>
@@ -23,10 +21,8 @@
                 <th><%= user.id %></th>
                 <td><%= user.username %></td>
                 <td> <%= user.email %></td>
-                <% if @current_user.admin?%>
+                <% if !@current_user.customer?%>
                 <td> <%= @roles[user.roles.pluck(:name)[0]] %> </td>
-                <% end %>
-                <% if !@current_user.customer? %>
                 <td> <%= user.branch_name if !user.branch_id.blank? %></td>
                 <td>
                     <div class="dropdown">

@@ -68,27 +68,23 @@
               <li><a class="dropdown-item"><%= link_to 'Cambiar mi contraseña', edit_password_path(@current_user.id) %></a></li>
             </ul>
           </li>
-          <a class="nav-link active" aria-current="page"><%= link_to 'cerrar sesión', session_path(@current_user.id),
+        </div>
+         <div class="collapse navbar-collapse">
+          <li class="navbar-nav ml-auto">
+            <a><%= link_to 'cerrar sesión', session_path(@current_user.id),
                 method: :delete, data: { confirm: 'Estás seguro de que deseas cerrar la sesión?'} %>
-          </a>
-          <% if !@current_user.customer? %>
-          <li class="nav-item">
-            <%= form_for :user,:url => users_search_path, :method => :post do |f| %>
-              <%= f.text_field :username, :placeholder => 'Nombre usuario', class:'form-control me-2'%>
-              <%= f.submit "Buscar", :class => 'btn btn-outline-success'%>
-            <% end %>
+            </a>
           </li>
-          <% end %>  
-
-        <% else %>
-          <li class="nav-item">
-            <a class="nav-link" href="/sessions/new">Iniciar Sesión</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/users/new">Registrarse</a>
-          </li>
-        <% end %>
-      </ul>
-    </div>
+          </div>
+      <% else %>
+        <li class="nav-item">
+          <a class="nav-link" href="/sessions/new">Iniciar Sesión</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/users/new">Registrarse</a>
+        </li>
+      <% end %>
+    </ul>
   </div>
+</div>
 </nav>

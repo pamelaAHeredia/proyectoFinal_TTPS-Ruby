@@ -75,15 +75,6 @@ class UsersController < ApplicationController
     redirect_to :edit_password, alert: 'Contraseña incorrecta'
   end
 
-  def search
-    @user = User.where(username: user_params[:username])
-    if @user != []
-      return redirect_to({ action: 'show', id: @user.ids })
-    else
-      redirect_to users_path, alert: 'usuario no encontrado'
-    end
-  end
-
   private
 
   def set_user

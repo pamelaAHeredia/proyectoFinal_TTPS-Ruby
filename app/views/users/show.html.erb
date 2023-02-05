@@ -10,10 +10,10 @@
           <% if !@user.branch_id.blank? %>
             <th scope="col">Sucursal ID</th>
           <% end %>
-          <% if @current_user.admin?%>
+          <% if !@current_user.customer?%>
           <th scope="col">Rol</th>
           <% end %>
-          <% if @current_user.admin? or @current_user.id == @user.id %>
+          <% if (!@current_user.bank_staff? and @current_user.id == @user.id) or @current_user.admin? %>
           <th scope="col">Acciones</th>
           <% end %>
         </tr>
@@ -26,10 +26,9 @@
           <% if !@user.branch_id.blank? %>
             <td><%= @user.branch_name %></td>
           <% end %>
-          <% if @current_user.admin?%>
-          <td><%= @roles[@user.roles.pluck(:name)[0]] %></td>
-          <% end %>
+          <td><%= @roles[@user.roles.pluck(:name)[0]] if !@current_user.customer? %></td>
           <% if @current_user.admin? or @current_user.id == @user.id %>
+          <% if (!@current_user.bank_staff? and @current_user.id == @user.id) or @current_user.admin? %>
           <td>
             <div class="dropdown">
               <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -39,10 +38,13 @@
                 <% if @current_user.admin? %>
                   <li><a class="dropdown-item"><%= link_to 'Eliminar', @user, method: :delete, data: { confirm: 'Estás seguro de que deseas eliminarlo?'} %></a></li>
                 <% end %>
+                
                 <li><a class="dropdown-item"><%= link_to 'Editar', edit_user_path(@user) %></a></li>
+                
               </ul>
             </div>
           </td>
+          <% end %>
           <% end %>
         </tr>
       </tbody>

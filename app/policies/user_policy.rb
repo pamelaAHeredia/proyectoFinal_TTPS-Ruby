@@ -19,7 +19,7 @@ class UserPolicy < BasePolicy
   end
 
   def edit
-    record.owner? || Current.user.admin?
+    (record.owner? && !Current.user.bank_staff?) || Current.user.admin?
   end
 
   def update
