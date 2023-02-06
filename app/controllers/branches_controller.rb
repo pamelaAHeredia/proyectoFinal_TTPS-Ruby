@@ -1,7 +1,6 @@
 class BranchesController < ApplicationController
   before_action :set_branch, only: %i[show edit update destroy]
   before_action :authorize!
-  before_action :localities, only: %i[new edit]
 
   def index
     @branches = Branch.all
@@ -18,9 +17,7 @@ class BranchesController < ApplicationController
     redirect_to branches_path, alert: 'No se pudo crear la sucursal.'
   end
 
-  def show
-    @days = Schedule.days
-  end
+  def show; end
 
   def edit; end
 
@@ -47,10 +44,6 @@ class BranchesController < ApplicationController
 
   def set_branch
     @branch = Branch.find params[:id]
-  end
-
-  def localities
-    @localities = Locality.all
   end
 
 end

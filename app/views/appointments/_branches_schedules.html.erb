@@ -1,5 +1,5 @@
 <h1>Sucursales y horarios</h1>
-<%- @branches.each do |branch| %>
+<%- available_branches.each do |branch| %>
   <div class="row d-flex flex-wrap" id="branches">
     <p>
       <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#m<%= branch.id %>" aria-expanded="false" aria-controls="collapseExample">
@@ -19,7 +19,7 @@
           <%- branch.schedules.each do |schedule|%>
             <tbody>
               <tr>
-                <th scope="row"><%= @days[schedule.day] %></th>
+                <th scope="row"><%= all_days[schedule.day] %></th>
                 <td><%= schedule.start_time.strftime("%k:%M") %></td>
                 <td><%= schedule.end_time.strftime("%k:%M") %></td>
               </tr>
@@ -29,4 +29,4 @@
       </div>
     </div>
   </div>
-<% end%>
+<%end %>

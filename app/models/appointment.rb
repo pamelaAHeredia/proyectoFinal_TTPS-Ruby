@@ -4,8 +4,8 @@ class Appointment < ApplicationRecord
 
   validates :motive, presence: true,
                      format: {
-                       with: /\A[a-z0-9A-Zñáéíóúü\s]+\z/,
-                       message: "Ingrese sólo letras y números."
+                       with: /\A[a-z0-9A-Zñáéíóúü,.\s]+\z/,
+                       message: "Ingrese sólo letras, números, comas o puntos."
                      }
 
   belongs_to :user

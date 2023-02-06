@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[show edit update destroy edit_password update_password]
   before_action :authorize!, only: %i[index]
-  before_action :roles, only: %i[index show]
 
   def index
     if Current.user.bank_staff?
@@ -13,12 +12,10 @@ class UsersController < ApplicationController
 
   def show
     authorize! @user
-    @statuses = Appointment.statuses
   end
 
   def edit
     authorize! @user
-    @branches = Branch.all
   end
 
   def update
@@ -92,8 +89,4 @@ class UsersController < ApplicationController
   def password_params
     params.require(:user).permit(:password, :new_password, :confirm_password)
   end
-
-  def roles 
-    @roles = Role.roles
-  end 
 end

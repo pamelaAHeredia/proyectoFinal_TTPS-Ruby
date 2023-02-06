@@ -5,4 +5,8 @@ module UsersHelper
       'Cliente' => :customer,
       'Personal Bancario' => :bank_staff }
   end
+
+  def all_roles
+    Role.roles
+  end
 end

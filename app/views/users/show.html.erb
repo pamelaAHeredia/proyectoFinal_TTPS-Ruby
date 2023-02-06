@@ -25,7 +25,7 @@
             <td><%= @user.branch_name %></td>
           <% end %>
           <% if !@current_user.customer?%>
-            <td><%= @roles[@user.roles.pluck(:name)[0]] %></td>
+            <td><%= all_roles[@user.roles.pluck(:name)[0]] %></td>
           <% end %>
           <% if (!@current_user.bank_staff? and @current_user.id == @user.id) or @current_user.admin? %>
             <td>
@@ -48,7 +48,7 @@
   </div>
   <% if !@current_user.customer? and @user.customer? %>
     <div class="row">
-      <% if @user.appointments.length > 0 %>
+      <% if !@user.appointments.empty? %>
         <h1 class="display-3 text-center">Turnos</h1>
         <table class="table">
           <thead>
@@ -56,6 +56,7 @@
               <th scope="col">Fecha</th>
               <th scope="col">Hora</th>
               <th scope="col">Sucursal </th>
+              <th scope="col">Motivo </th>
               <th scope="col">Estado</th>
               <th scope="col">Empleado</th>
               <th scope="col">Comentario asociado</th>
@@ -67,7 +68,8 @@
                 <th><%= appointment.date %></th>
                 <td><%= appointment.time.strftime("%k:%M") %></td>
                 <td><%= appointment.branch_name %></td>
-                <td><%= @statuses[appointment.status] %></td>
+                <td><%= appointment.motive %></td>
+                <td><%= all_statuses[appointment.status] %></td>
                 <% if !appointment.pending? %>
                   <td><%= appointment.personnel_username %></td>
                   <td><%= appointment.comment %></td>

@@ -1,6 +1,5 @@
 class LocalitiesController < ApplicationController
   before_action :set_locality, only: %i[show edit update destroy]
-  before_action :provinces, only: %i[index show]
   before_action :authorize!
 
   def index
@@ -16,6 +15,7 @@ class LocalitiesController < ApplicationController
     return redirect_to localities_path, notice: 'La localidad ha sido creada' if @locality.save
 
     redirect_to localities_path, alert: 'No se pudo crear la localidad'
+    # render :new, status: :unprocessable_entity
   end
 
   def show; end
@@ -42,9 +42,5 @@ class LocalitiesController < ApplicationController
 
   def set_locality
     @locality = Locality.find params[:id]
-  end
-  
-  def provinces
-    @provinces = Locality.provinces
   end
 end

@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="row">
+  <div class="row my-3">
     <div class="row">
       <h1 class="display-3 text-center">Datos de la Sucursal</h1>
     </div>
@@ -12,7 +12,7 @@
             <th scope="col">Teléfono</th>
             <th scope="col">Localidad</th>
             <% if @current_user.admin? %>
-            <th scope="col">Acciones</th>
+              <th scope="col">Acciones</th>
             <% end %>
           </tr>
         </thead>
@@ -23,93 +23,120 @@
             <td><%= @branch.telephone %></td>
             <td><%= @branch.locality.name_province%></td>
             <% if @current_user.admin? %>
-            <td>
-              <div class="dropdown">
-                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  ver Acciones
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item"><%= link_to 'Editar', edit_branch_path(@branch) %></a></li>
-                  <li><a class="dropdown-item"><%= button_to 'Eliminar', @branch, method: :delete %></a></li>
-                </ul>
-              </div>
-            </td>
-            <% end %>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-  <div class="row">
-    <div class="row">
-      <h1 class="display-3 text-center">Horarios</h1>
-    </div>
-    <div class="row">
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Día</th>
-            <th scope="col">Hora de Apertura</th>
-            <th scope="col">Hora de Cierre</th>
-            <% if @current_user.admin? %>
-            <th scope="col">Acciones</th>
-            <% end %>
-          </tr>
-        </thead>
-        <%- @branch.schedules.each do |schedule| %>
-          <tbody>
-            <tr>
-              <th><%= schedule.id %></th>
-              <td><%= @days[schedule.day] %></td>
-              <td><%= schedule.start_time.strftime("%k:%M") %></td>
-              <td><%= schedule.end_time.strftime("%k:%M") %></td>
-              <% if @current_user.admin? %>
               <td>
                 <div class="dropdown">
                   <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     ver Acciones
                   </a>
                   <ul class="dropdown-menu">
-                    <li><a class="dropdown-item"><%= link_to 'Editar', edit_schedule_path(schedule) %></a></li>
-                    <li><a class="dropdown-item"><%= link_to 'Eliminar', schedule, method: :delete, data: { confirm: 'Estás seguro de que deseas eliminarlo?'} %></a></li>
+                    <li><a class="dropdown-item"><%= link_to 'Editar', edit_branch_path(@branch) %></a></li>
+                    <li><a class="dropdown-item"><%= button_to 'Eliminar', @branch, method: :delete %></a></li>
                   </ul>
                 </div>
               </td>
-              <% end %>
-            </tr>
-          </tbody>
-        <% end %>
+            <% end %>
+          </tr>
+        </tbody>
       </table>
     </div>
   </div>
-  <% if @current_user.admin? %>
-  <div class="row">
-    <h2>Agregar Horario:</h2>
-    <%= form_for([@branch, @branch.schedules.build]) do |f| %>
-      <% @branch.errors.full_messages.each do |error| %>
-        <div>
-          <% error %>
-        </div>
-      <% end %>
-      <div >
-        <%= f.label :Día %>
-        <%= f.select :day,
-                options_for_select(get_available_days, params[:day]) %>
+  <div class="row my-5">
+    <div class="row my-5">
+      <h1 class="display-3 text-center">Horarios</h1>
+    </div>
+    <%if !@branch.schedules.empty? %>
+      <div class="row my-2">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Día</th>
+              <th scope="col">Hora de Apertura</th>
+              <th scope="col">Hora de Cierre</th>
+              <% if @current_user.admin? %>
+                <th scope="col">Acciones</th>
+              <% end %>
+            </tr>
+          </thead>
+          <%- @branch.schedules.each do |schedule| %>
+            <tbody>
+              <tr>
+                <th><%= schedule.id %></th>
+                <td><%= all_days[schedule.day] %></td>
+                <td><%= schedule.start_time.strftime("%k:%M") %></td>
+                <td><%= schedule.end_time.strftime("%k:%M") %></td>
+                <% if @current_user.admin? %>
+                  <td>
+                    <div class="dropdown">
+                      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        ver Acciones
+                      </a>
+                      <ul class="dropdown-menu">
+                        <li><a class="dropdown-item"><%= link_to 'Editar', edit_schedule_path(schedule) %></a></li>
+                        <li><a class="dropdown-item"><%= link_to 'Eliminar', schedule, method: :delete, data: { confirm: 'Estás seguro de que deseas eliminarlo?'} %></a></li>
+                      </ul>
+                    </div>
+                  </td>
+                <% end %>
+              </tr>
+            </tbody>
+          <% end %>
+        </table>
       </div>
-      <div >
-        <%= f.label :Inicio, 'Hora de Apertura' %>
-        <%= f.time_select :start_time, required: true %>
-      </div>
-      <div >
-        <%= f.label :Fin, 'Hora de cierre' %>
-        <%= f.time_select :end_time, required: true %>
-      </div>
-      <div >
-        <%= f.submit 'Guardar', :class => 'btn btn-success' %>
-      </div>
+    <%else%>
+      <h4>Esta sucursal aún no tiene horarios</h4>
     <% end %>
   </div>
-  <% end %>
+  <% if @current_user.admin? %>
+    <div class="row my-3">
+      <h2>Agregar Horario:</h2>
+      <%= form_for([@branch, @branch.schedules.build]) do |f| %>
+        <% @branch.errors.full_messages.each do |error| %>
+          <div>
+            <% error %>
+          </div>
+        <% end %>
+        <div >
+          <%= f.label :Día %>
+          <%= f.select :day,
+                options_for_select(get_available_days, params[:day]) %>
+        </div>
+        <div >
+          <%= f.label :Inicio, 'Hora de Apertura' %>
+          <%= f.time_select :start_time, required: true %>
+        </div>
+        <div >
+          <%= f.label :Fin, 'Hora de cierre' %>
+          <%= f.time_select :end_time, required: true %>
+        </div>
+        <div >
+          <%= f.submit 'Guardar', :class => 'btn btn-success' %>
+        </div>
+      <% end %>
+    </div>
+    <div class="row my-5">
+      <h1>Personal de la sucursal</h1>
+      <%if !@branch.users.empty? %>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Nombre</th>
+              <th scope="col">Email</th>
+            </tr>
+          </thead>
+          <%- @branch.users.each do |user| %>
+            <tbody>
+              <tr>
+                <th><%= user.username %></th>
+                <td><%= user.email %></td>
+              </tr>
+            </tbody>
+          <% end %>
+        </table>
+      </div>
+    <%else%>
+      <h4>La sucursal aún no tiene personal asociado</h4>
+    <% end %>
+  <%end%>
   <div><%= link_to 'volver', branches_path %></div>
 </div>

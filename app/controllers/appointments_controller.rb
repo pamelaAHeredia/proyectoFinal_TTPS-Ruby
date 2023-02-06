@@ -1,8 +1,6 @@
 class AppointmentsController < ApplicationController
   before_action :set_appointment, only: %i[show edit update destroy attend edit_attention]
   before_action :authorize!, only: %i[new create edit_attention]
-  before_action :statuses, only: %i[show index filter]
-  before_action :branches, :days, only: %i[new edit]
 
   def index
     @appointments = if Current.user.customer?
@@ -96,17 +94,5 @@ class AppointmentsController < ApplicationController
 
   def set_appointment
     @appointment = Appointment.find params[:id]
-  end
-
-  def statuses
-    @statuses = Appointment.statuses
-  end
-
-  def branches
-    @branches = Branch.all
-  end
-
-  def days
-    @days = Schedule.days
   end
 end

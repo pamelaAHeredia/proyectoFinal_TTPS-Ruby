@@ -1,9 +1,11 @@
 <div class="form-group">
   <%= form_with model: @locality do |f| %>
-    <% @locality.errors.full_messages.each do |error| %>
-      <div>
-        <% error %>
-      </div>
+    <% if @locality.errors.any? %>
+      <% @locality.errors.full_messages.each do |error| %>
+        <div>
+          <% error %>
+        </div>
+      <% end %>
     <% end %>
     <div>
       <%= f.label :nombre %><br>

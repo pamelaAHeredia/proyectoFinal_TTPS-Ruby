@@ -9,4 +9,8 @@ module SchedulesHelper
       'Sábado' => :saturday,
       'Domingo' => :sunday }
   end
+
+  def all_days 
+    Schedule.days
+  end
 end

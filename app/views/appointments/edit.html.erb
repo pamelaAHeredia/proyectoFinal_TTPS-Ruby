@@ -10,11 +10,11 @@
         <% end %>
         <div>
           <%= f.label :Sucursal %><br>
-          <%= f.collection_select :branch_id, @branches, :id, :name %>
+          <%= f.collection_select :branch_id, available_branches, :id, :name %>
         </div>
         <div>
           <%= f.label :Fecha %>
-          <%= f.date_select :date, start_year: Time.now.year %>
+          <%= f.date_field :date, start_year: Time.now.year %>
         </div>
         <div>
           <%= f.label :Hora %>

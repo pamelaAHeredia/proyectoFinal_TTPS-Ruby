@@ -4,4 +4,8 @@ module AppointmentsHelper
         'Pendientes' => :pending, 
         'Todos' => :all }
     end
+
+    def all_statuses 
+        Appointment.statuses
+    end
 end

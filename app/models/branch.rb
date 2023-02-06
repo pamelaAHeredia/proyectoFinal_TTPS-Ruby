@@ -26,4 +26,8 @@ class Branch < ApplicationRecord
     appointments.any? { |e| e.pending? }
   end
 
+  def available?
+    !schedules.empty? && !users.empty?
+  end
+
 end

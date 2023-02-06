@@ -59,9 +59,7 @@ Brinda la posibilidad de gestionar las sucursales, los horarios de atención, lo
 
 ## Decisiones tomadas 
 
-- El administrador por defecto es el que tiene id 1. Este usuario no se puede eliminar desde la interfaz de usuario.
-
-- Para los comentarios y los motivos en los turnos, los nombres de las localidades y los nombres de usuario, decidí que sólo es posible ingresar letras, números, espacios, vocales con tilde y diéresis. No se admiten caracteres especiales. 
+- El administrador por defecto es el que tiene id 1. Este usuario no se puede eliminar o modificar desde la interfaz de usuario.
 
 - Para cancelar los turnos decidí hacer una borrado físico. 
 

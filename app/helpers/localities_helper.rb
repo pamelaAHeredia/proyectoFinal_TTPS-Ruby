@@ -23,4 +23,8 @@ module LocalitiesHelper
       'Tierra del Fuego' => :tierra_del_fuego,
       'Tucumán' => :tucuman }
   end
+
+  def all_localities 
+    Locality.all.order(name: :asc)
+  end
 end

@@ -1,6 +1,6 @@
-<div class="container">
+<%# <div class="container"> %>
 <h1 class="display-4 text-center">Turnos</h1>
-<% if @appointments.length > 0 %>
+<% if !@appointments.empty? %>
 <div class="row">
     <div class="form-group">
       <%= form_for :appointment, :url => appointments_filter_path, :method => :post do |f| %>
@@ -37,7 +37,7 @@
           <td><%= appointment.date %></td>
           <td><%= appointment.time.strftime("%k:%M") %></td>
           <td><%= appointment.motive %></td>
-          <td><%= @statuses[appointment.status] %></td>
+          <td><%= all_statuses[appointment.status] %></td>
           <% if !appointment.comment.blank? %>
           <td><%= appointment.personnel_username %></td>
           
@@ -56,7 +56,7 @@
                 <li><a class="dropdown-item"><%= link_to 'Cancelar', appointment, method: :delete, data: { confirm: 'Estás seguro de que deseas cancelarlo?'} %></a></li>
                 <li><a class="dropdown-item"><%= link_to 'Editar', edit_appointment_path(appointment) %></a></li>
               <% end %>
-                <li><a class="dropdown-item"><%= link_to 'Marcar Atendido', edit_attention_path(appointment) if !@current_user.customer? %></a></li>    
+                <li><a class="dropdown-item"><%= link_to 'Marcar Atendido', edit_attention_path(appointment) if !@current_user.customer? and appointment.pending? %></a></li>    
               </ul>
             </div>
           </td>
@@ -70,6 +70,6 @@
   <h3>No hay turnos para mostrar</p>
 <% end %>
 
-  <div><%= link_to 'volver', home_index_path %></div>
+  
 
-</div>
+<%# </div> %>
