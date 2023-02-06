@@ -11,7 +11,7 @@
             <th scope="col">Dirección</th>
             <th scope="col">Teléfono</th>
             <th scope="col">Localidad</th>
-            <% if @current_user.admin? %>
+            <% if Current.user.admin? %>
               <th scope="col">Acciones</th>
             <% end %>
           </tr>
@@ -22,7 +22,7 @@
             <td><%= @branch.address %></td>
             <td><%= @branch.telephone %></td>
             <td><%= @branch.locality.name_province%></td>
-            <% if @current_user.admin? %>
+            <% if Current.user.admin? %>
               <td>
                 <div class="dropdown">
                   <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -53,7 +53,7 @@
               <th scope="col">Día</th>
               <th scope="col">Hora de Apertura</th>
               <th scope="col">Hora de Cierre</th>
-              <% if @current_user.admin? %>
+              <% if Current.user.admin? %>
                 <th scope="col">Acciones</th>
               <% end %>
             </tr>
@@ -65,7 +65,7 @@
                 <td><%= Schedule.days[schedule.day] %></td>
                 <td><%= schedule.start_time.strftime("%k:%M") %></td>
                 <td><%= schedule.end_time.strftime("%k:%M") %></td>
-                <% if @current_user.admin? %>
+                <% if Current.user.admin? %>
                   <td>
                     <div class="dropdown">
                       <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -87,7 +87,7 @@
       <h4>Esta sucursal aún no tiene horarios</h4>
     <% end %>
   </div>
-  <% if @current_user.admin? %>
+  <% if Current.user.admin? %>
     <div class="row my-3">
       <h2>Agregar Horario:</h2>
       <%= form_for([@branch, @branch.schedules.build]) do |f| %>

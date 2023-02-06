@@ -15,7 +15,7 @@ class SchedulesController < ApplicationController
     @schedule = @branch.schedules.create schedule_params
     return redirect_to branch_path(@branch) if @schedule.save
 
-    redirect_to branch_path, alert: 'No se pudo crear el horario.'
+    redirect_to branches_path, alert: 'No se pudo crear el horario.'
   end
 
   def show; end

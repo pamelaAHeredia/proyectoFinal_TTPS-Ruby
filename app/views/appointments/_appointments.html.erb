@@ -52,11 +52,11 @@
                 ver Acciones
               </a>
               <ul class="dropdown-menu">
-              <%if !@current_user.bank_staff? %>
+              <%if !Current.user.bank_staff? %>
                 <li><a class="dropdown-item"><%= link_to 'Cancelar', appointment, method: :delete, data: { confirm: 'Estás seguro de que deseas cancelarlo?'} %></a></li>
                 <li><a class="dropdown-item"><%= link_to 'Editar', edit_appointment_path(appointment) %></a></li>
               <% end %>
-                <li><a class="dropdown-item"><%= link_to 'Marcar Atendido', edit_attention_path(appointment) if !@current_user.customer? and appointment.pending? %></a></li>    
+                <li><a class="dropdown-item"><%= link_to 'Marcar Atendido', edit_attention_path(appointment) if !Current.user.customer? and appointment.pending? %></a></li>    
               </ul>
             </div>
           </td>

@@ -9,10 +9,10 @@
           <% if !@user.branch_id.blank? %>
             <th scope="col">Sucursal ID</th>
           <% end %>
-          <% if !@current_user.customer?%>
+          <% if !Current.user.customer?%>
             <th scope="col">Rol</th>
           <% end %>
-          <% if (!@current_user.bank_staff? and @current_user.id == @user.id) or @current_user.admin? %>
+          <% if (!Current.user.bank_staff? and Current.user.id == @user.id) or Current.user.admin? %>
             <th scope="col">Acciones</th>
           <% end %>
         </tr>
@@ -24,17 +24,17 @@
           <% if !@user.branch_id.blank? %>
             <td><%= @user.branch_name %></td>
           <% end %>
-          <% if !@current_user.customer?%>
+          <% if !Current.user.customer?%>
             <td><%= Role.roles[@user.roles.pluck(:name)[0]] %></td>
           <% end %>
-          <% if (!@current_user.bank_staff? and @current_user.id == @user.id) or @current_user.admin? %>
+          <% if (!Current.user.bank_staff? and Current.user.id == @user.id) or Current.user.admin? %>
             <td>
               <div class="dropdown">
                 <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   ver Acciones
                 </a>
                 <ul class="dropdown-menu">
-                  <% if @current_user.admin? %>
+                  <% if Current.user.admin? %>
                     <li><a class="dropdown-item"><%= link_to 'Eliminar', @user, method: :delete, data: { confirm: 'Estás seguro de que deseas eliminarlo?'} %></a></li>
                   <% end %>
                   <li><a class="dropdown-item"><%= link_to 'Editar', edit_user_path(@user) %></a></li>
@@ -46,7 +46,7 @@
       </tbody>
     </table>
   </div>
-  <% if !@current_user.customer? and @user.customer? %>
+  <% if !Current.user.customer? and @user.customer? %>
     <div class="row">
       <% if !@user.appointments.empty? %>
         <h1 class="display-3 text-center">Turnos</h1>
@@ -86,6 +86,6 @@
       <% end %>
     </div>
   <% end %>
-  <div><%= link_to 'volver', home_index_path if @current_user.customer? %></div>
-  <div><%= link_to 'volver', users_path if !@current_user.customer? %></div>
+  <div><%= link_to 'volver', home_index_path if Current.user.customer? %></div>
+  <div><%= link_to 'volver', users_path if !Current.user.customer? %></div>
 </div>

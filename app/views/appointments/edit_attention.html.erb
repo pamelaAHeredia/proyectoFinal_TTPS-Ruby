@@ -1,7 +1,7 @@
 <div class="container">
 <h1 class="display-3 text-center">Registrar atención</h1>
   <div class="form-group">
-    <%= form_for :appointment, :url => attended_path(@appointment, @current_user.id), :method => :patch do |f| %>
+    <%= form_for :appointment, :url => attended_path(@appointment, Current.user.id), :method => :patch do |f| %>
       <% @appointment.errors.full_messages.each do |error| %>
         <div>
           <% error %>
