@@ -16,6 +16,7 @@ l3 = Locality.create(name: 'Agrelo', province: :mendoza)
 b1 = Branch.create(name: 'Sucursal Juana Koslay', address: 'jk 1234', telephone: '(123)497-0029', locality_id: l1.id)
 b2 = Branch.create(name: 'Sucursal La Plata', address: 'LP 1234', telephone: '123-497-0029', locality_id: l2.id)
 b3 = Branch.create(name: 'Sucursal Luján de Cuyo', address: 'LdC 1234', telephone: '1234970029', locality_id: l3.id)
+b4 = Branch.create(name: 'Sucursal El Potrero de los Funes', address: 'Potrero 1234', telephone: '1234970029', locality_id: l1.id)
 
 # USUARIOS
 
