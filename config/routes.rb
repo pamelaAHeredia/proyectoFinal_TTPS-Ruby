@@ -3,7 +3,8 @@ Rails.application.routes.draw do
 
   root 'home#index'
 
-  resources :localities, :branches, :schedules, :appointments
+  resources :localities, :branches, :appointments
+  resources :schedules, only: %i[edit update destroy] 
 
   # auth
   namespace :auth, path: '', as: '' do
