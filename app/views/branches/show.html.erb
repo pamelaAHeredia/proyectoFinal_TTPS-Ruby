@@ -62,7 +62,7 @@
             <tbody>
               <tr>
                 <th><%= schedule.id %></th>
-                <td><%= all_days[schedule.day] %></td>
+                <td><%= Schedule.days[schedule.day] %></td>
                 <td><%= schedule.start_time.strftime("%k:%M") %></td>
                 <td><%= schedule.end_time.strftime("%k:%M") %></td>
                 <% if @current_user.admin? %>

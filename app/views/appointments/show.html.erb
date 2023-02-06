@@ -21,7 +21,7 @@
           <td><%= @appointment.date %></td>
           <td><%= @appointment.time.strftime("%k:%M") %></td>
           <td><%= @appointment.motive %></td>
-          <td><%= Appointment.status[@appointment.status] %></td>
+          <td><%= Appointment.statuses[@appointment.status] %></td>
           <td><%= @appointment.personnel_username %></td>
           <td>
             <div class="dropdown">

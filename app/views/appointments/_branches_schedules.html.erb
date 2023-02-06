@@ -19,7 +19,7 @@
           <%- branch.schedules.each do |schedule|%>
             <tbody>
               <tr>
-                <th scope="row"><%= all_days[schedule.day] %></th>
+                <th scope="row"><%= Schedule.days[schedule.day] %></th>
                 <td><%= schedule.start_time.strftime("%k:%M") %></td>
                 <td><%= schedule.end_time.strftime("%k:%M") %></td>
               </tr>

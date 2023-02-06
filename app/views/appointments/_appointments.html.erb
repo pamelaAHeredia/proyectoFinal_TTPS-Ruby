@@ -37,7 +37,7 @@
           <td><%= appointment.date %></td>
           <td><%= appointment.time.strftime("%k:%M") %></td>
           <td><%= appointment.motive %></td>
-          <td><%= all_statuses[appointment.status] %></td>
+          <td><%= Appointment.statuses[appointment.status] %></td>
           <% if !appointment.comment.blank? %>
           <td><%= appointment.personnel_username %></td>
           

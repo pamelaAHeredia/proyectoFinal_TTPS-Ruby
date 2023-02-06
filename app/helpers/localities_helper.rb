@@ -24,7 +24,5 @@ module LocalitiesHelper
       'Tucumán' => :tucuman }
   end
 
-  def all_localities 
-    Locality.all.order(name: :asc)
-  end
+
 end

@@ -6,7 +6,4 @@ module UsersHelper
       'Personal Bancario' => :bank_staff }
   end
 
-  def all_roles
-    Role.roles
-  end
 end
