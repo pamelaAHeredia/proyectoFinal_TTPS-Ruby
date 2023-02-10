@@ -15,10 +15,6 @@ class Appointment < ApplicationRecord
        pending: 'Pendiente',
        attended: 'Atendido'
 
-  def pending?
-    status == 'pending'
-  end
-
   def owner?
     user_id == Current.user.id
   end

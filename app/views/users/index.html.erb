@@ -22,7 +22,7 @@
                 <td><%= user.username %></td>
                 <td> <%= user.email %></td>
                 <% if !Current.user.customer?%>
-                <td> <%= Role.roles[user.roles.pluck(:name)[0]] %> </td>
+                <td> <%= @roles[user.roles.pluck(:name)[0]] %> </td>
                 <% if !Current.user.bank_staff?%>
                 <td> <%= user.branch_name if !user.branch_id.blank? %></td>
                 <% end %>

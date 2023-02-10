@@ -21,7 +21,7 @@
       </div>
       <div class='my-2'>
         <%= f.label :Sucursal, 'Sucursal (Sólo para usuarios con rol Personal Bancario)' %><br>
-        <%= f.collection_select :branch_id, Branch.all.order(name: :asc), :id, :name %>
+        <%= f.collection_select :branch_id, @branches, :id, :name %>
       </div>
     <% else %>
       <div class='my-2'>

@@ -1,5 +1,6 @@
 class Auth::UsersController < ApplicationController
   skip_before_action :protect_pages
+  before_action :branches, only: %i[new create]
 
   def new
     @user = User.new
@@ -34,4 +35,9 @@ class Auth::UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:username, :email, :password, :roles, :branch_id)
   end
+
+  def branches
+    @branches = Branch.all.order(name: :asc)
+  end
+
 end

@@ -20,7 +20,7 @@
           <td><%= @appointment.date %></td>
           <td><%= @appointment.time.strftime("%k:%M") %></td>
           <td><%= @appointment.motive %></td>
-          <td><%= Appointment.statuses[@appointment.status] %></td>
+          <td><%= @statuses[@appointment.status] %></td>
           <td><%= @appointment.personnel_username if !@appointment.personnel_id.blank? %></td>
           <td><%= @appointment.motive if !@appointment.comment.blank?%></td>
           <td>

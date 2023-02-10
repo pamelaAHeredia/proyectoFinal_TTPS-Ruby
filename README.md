@@ -44,6 +44,10 @@ Brinda la posibilidad de gestionar las sucursales, los horarios de atención, lo
         - Los usuarios con rol de cliente pueden registrarse ellos mismos desde la sección 'registrarse'.
     - Eliminación de usuarios: 
         - Los usuarios sólo pueden ser eliminados por un administrador.
+    - Edición de usuarios: 
+        - Los usuarios con rol de cliente pueden editar su propia información. 
+        - Los usuarios con rol de personal no pueden editar su información. 
+        - Los usuarios con rol de administrador pueden editar las información de todos los usuarios, incluyendo la suya propia.
 
 - `Gestión de Sucursales`: 
     - Las sucursales son creadas, modificadas y eliminadas por un usuario con rol de administrador. 
@@ -51,11 +55,11 @@ Brinda la posibilidad de gestionar las sucursales, los horarios de atención, lo
 
 - `Gestión de turnos`: 
     - Los clientes pueden solicitar turnos, una vez registrados en el sistema.
-    - 
+    - Los turnos pueden ser editados y cancelados por el usuario que los creó o por un administrador.
 
 - `Gestión de horarios`: 
     - Los horarios sólo pueden ser creados, modificados y eliminados por un usuario con rol de administrador. 
-    - Pueden ser visualizados junto a la sucursal correspondiente. 
+    - Pueden ser visualizados junto a la información de la sucursal correspondiente. 
 
 ## Decisiones tomadas 
 
@@ -68,6 +72,8 @@ Brinda la posibilidad de gestionar las sucursales, los horarios de atención, lo
 - Los turnos pueden ser filtrados por estado. 
  
 - Los usuarios con rol de cliente pueden ver las sucursales con sus horarios. Pensé que, de momento, simplificaría un poco la tarea de sacar un turno. 
+
+- Si una sucursal no tiene personal asociado ni horarios definidos, no será mostrada en la lista de sucursales disponibles para sacar turno. 
 
 
 

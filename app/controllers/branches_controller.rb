@@ -1,5 +1,7 @@
 class BranchesController < ApplicationController
   before_action :set_branch, only: %i[show edit update destroy]
+  before_action :localities, only: %i[new create update edit]
+  before_action :schedule_days, only: %i[show index]
   before_action :authorize!
 
   def index
@@ -46,4 +48,11 @@ class BranchesController < ApplicationController
     @branch = Branch.find params[:id]
   end
 
+  def localities
+    @localities = Locality.all
+  end
+
+  def schedule_days
+    @schedule_days = Schedule.days
+  end
 end

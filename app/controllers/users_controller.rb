@@ -1,5 +1,8 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[show edit update destroy edit_password update_password]
+  before_action :statuses, only: %i[show index filter]
+  before_action :branches, only: %i[edit update]
+  before_action :roles, only: %i[index show]
   before_action :authorize!, only: %i[index]
 
   def index
@@ -36,7 +39,8 @@ class UsersController < ApplicationController
         end
         redirect_to @user, notice: 'Usuario actualizado!'
       else
-        render :edit, status: :unprocessable_entity
+        # render :edit, status: :unprocessable_entity
+        redirect_to @user, alert: 'No se pudo actualizar el usuario'
       end
     else
       redirect_to @user, alert: 'No es posible modificar los datos de este administrador.'
@@ -45,7 +49,7 @@ class UsersController < ApplicationController
 
   def destroy
     authorize! @user
-    if @user.id != 1 
+    if @user.id != 1
       if @user.id != Current.user.id
         @user.destroy
         return redirect_to users_path, notice: 'El usuario ha sido eliminado.'
@@ -89,4 +93,16 @@ class UsersController < ApplicationController
   def password_params
     params.require(:user).permit(:password, :new_password, :confirm_password)
   end
+
+  def branches
+    @branches = Branch.all.order(name: :asc)
+  end
+
+  def statuses
+    @statuses = Appointment.statuses
+  end
+
+  def roles 
+    @roles = Role.roles
+  end 
 end

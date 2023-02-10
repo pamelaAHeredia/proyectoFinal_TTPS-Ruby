@@ -16,6 +16,7 @@ class SchedulesController < ApplicationController
     return redirect_to branch_path(@branch) if @schedule.save
 
     redirect_to branches_path, alert: 'No se pudo crear el horario.'
+    # render :new, status: :unprocessable_entity
   end
 
   def show; end
