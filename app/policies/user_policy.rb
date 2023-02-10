@@ -27,11 +27,11 @@ class UserPolicy < BasePolicy
   end
 
   def edit_password
-    record.owner? || Current.admin?
+    record.owner?
   end
 
   def update_password
-    record.owner? || Current.admin?
+    record.owner?
   end
 
   def index

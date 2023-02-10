@@ -14,5 +14,4 @@ module Error
       redirect_to home_index_path, alert: 'No es posible eliminar esta entidad, tiene dependencias.'
     end
   end
-  
 end
