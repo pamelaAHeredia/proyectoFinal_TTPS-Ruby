@@ -2,35 +2,25 @@ class AppointmentsController < ApplicationController
   before_action :set_appointment, only: %i[show edit update destroy attend edit_attention]
   before_action :statuses, only: %i[show index filter]
   before_action :schedule_days, only: %i[edit update new create]
-  before_action :authorize!, only: %i[new create edit_attention]
+  before_action :authorize!, only: %i[index filter new create edit_attention]
 
   def index
     @appointments = if Current.user.customer?
                       Appointment.where(user_id: Current.user.id)
-                    elsif Current.user.bank_staff?
-                      Appointment.where(branch_id: Current.user.branch_id)
                     else
-                      Appointment.all
+                      Appointment.where(branch_id: Current.user.branch_id)
                     end
   end
-  
+
   def filter
     status = appointment_params[:status]
     if status == 'all'
-      @appointments = if Current.user.customer?
-                        Appointment.where(user_id: Current.user.id)
-                      elsif Current.user.bank_staff?
-                        Appointment.where(branch_id: Current.user.branch_id)
-                      else
-                        Appointment.all
-                      end
+      return redirect_to appointments_path 
     else
       @appointments = if Current.user.customer?
                         Appointment.where(user_id: Current.user.id, status: status)
-                      elsif Current.user.bank_staff?
-                        Appointment.where(branch_id: Current.user.branch_id, status: status)
                       else
-                        Appointment.where(status: status)
+                        Appointment.where(branch_id: Current.user.branch_id, status: status)
                       end
     end
   end
@@ -48,7 +38,9 @@ class AppointmentsController < ApplicationController
     # render :new, status: :unprocessable_entity
   end
 
-  def show; end
+  def show
+    authorize! @appointment
+  end
 
   def edit
     authorize! @appointment

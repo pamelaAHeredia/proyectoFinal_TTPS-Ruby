@@ -46,46 +46,7 @@
       </tbody>
     </table>
   </div>
-  <% if Current.user.admin? and @user.customer? %>
-    <div class="row">
-      <% if !@user.appointments.empty? %>
-        <h1 class="display-3 text-center">Turnos</h1>
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">Fecha</th>
-              <th scope="col">Hora</th>
-              <th scope="col">Sucursal </th>
-              <th scope="col">Motivo </th>
-              <th scope="col">Estado</th>
-              <th scope="col">Empleado</th>
-              <th scope="col">Comentario asociado</th>
-            </tr>
-          </thead>
-          <%- @user.appointments.each do |appointment|%>
-            <tbody>
-              <tr>
-                <th><%= appointment.date %></th>
-                <td><%= appointment.time.strftime("%k:%M") %></td>
-                <td><%= appointment.branch_name %></td>
-                <td><%= appointment.motive %></td>
-                <td><%= @statuses[appointment.status] %></td>
-                <% if !appointment.pending? %>
-                  <td><%= appointment.personnel_username %></td>
-                  <td><%= appointment.comment %></td>
-                <% else %>
-                  <td></td>
-                  <td></td>
-                <% end %>
-              </tr>
-            </tbody>
-          <% end %>
-        </table>
-      <% else %>
-        <h3>No hay turnos para mostrar</h3>
-      <% end %>
-    </div>
-  <% end %>
+
   <div><%= link_to 'volver', home_index_path if Current.user.customer? %></div>
   <div><%= link_to 'volver', users_path if !Current.user.customer? %></div>
 </div>

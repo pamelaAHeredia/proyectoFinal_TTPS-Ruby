@@ -44,6 +44,7 @@ Brinda la posibilidad de gestionar las sucursales, los horarios de atención, lo
         - Los usuarios con rol de cliente pueden registrarse ellos mismos desde la sección 'registrarse'.
     - Eliminación de usuarios: 
         - Los usuarios sólo pueden ser eliminados por un administrador.
+        - Un usuario con rol de administrador no puede eliminar su propia cuenta.
     - Edición de usuarios: 
         - Los usuarios con rol de cliente pueden editar su propia información. 
         - Los usuarios con rol de personal no pueden editar su información. 
@@ -55,7 +56,7 @@ Brinda la posibilidad de gestionar las sucursales, los horarios de atención, lo
 
 - `Gestión de turnos`: 
     - Los clientes pueden solicitar turnos, una vez registrados en el sistema.
-    - Los turnos pueden ser editados y cancelados por el usuario que los creó o por un administrador.
+    - Los turnos sólo pueden ser editados o cancelados por el usuario que los creó.
 
 - `Gestión de horarios`: 
     - Los horarios sólo pueden ser creados, modificados y eliminados por un usuario con rol de administrador. 
@@ -63,11 +64,9 @@ Brinda la posibilidad de gestionar las sucursales, los horarios de atención, lo
 
 ## Decisiones tomadas 
 
-- El administrador por defecto es el que tiene id 1. Este usuario no se puede eliminar o modificar desde la interfaz de usuario.
+- El administrador por defecto es el que tiene id 1, y este usuario no se puede eliminar o modificar desde la interfaz de usuario.
 
 - Para cancelar los turnos decidí hacer una borrado físico. 
-
-- El administrador puede eliminar turnos con fecha anterior a la actual y con estado 'Atendido'.
 
 - Los turnos pueden ser filtrados por estado. 
  

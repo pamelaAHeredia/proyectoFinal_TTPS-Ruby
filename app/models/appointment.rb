@@ -19,6 +19,10 @@ class Appointment < ApplicationRecord
     user_id == Current.user.id
   end
 
+  def branch?
+    branch_id == Current.user.branch_id
+  end
+  
   def available?
     date > DateTime.now.to_date
   end

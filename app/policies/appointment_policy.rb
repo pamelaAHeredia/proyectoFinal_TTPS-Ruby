@@ -1,29 +1,41 @@
 class AppointmentPolicy < BasePolicy
   def edit
-    record.owner? || Current.user.admin?
+    record.owner?
+  end
+
+  def index 
+    !Current.user.admin?
+  end
+
+  def filter
+    !Current.user.admin?
+  end
+
+  def show
+    (Current.user.bank_staff? && record.branch?) || record.owner?
   end
 
   def update
-    record.owner? || Current.user.admin?
+    record.owner?
   end
 
   def destroy
-    record.owner? || Current.user.admin?
+    record.owner?
   end
 
   def attend
-    !Current.user.customer?
+    Current.user.bank_staff?
   end
 
   def edit_attention
-    !Current.user.customer?
+    Current.user.bank_staff?
   end
 
   def new
-    !Current.user.bank_staff?
+    Current.user.customer?
   end
 
   def create
-    !Current.user.bank_staff?
+    Current.user.customer?
   end
 end

@@ -40,7 +40,7 @@ class UsersController < ApplicationController
         redirect_to @user, notice: 'Usuario actualizado!'
       else
         # render :edit, status: :unprocessable_entity
-        redirect_to @user, alert: 'No se pudo actualizar el usuario'
+        redirect_to @user, alert: 'El nombre de usuario o el mail ya están en uso. Elija otro.'
       end
     else
       redirect_to @user, alert: 'No es posible modificar los datos de este administrador.'

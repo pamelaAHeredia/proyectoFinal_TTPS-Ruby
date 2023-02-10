@@ -1,5 +1,4 @@
 <h1 class="display-4 text-center">Turnos</h1>
-<% if !@appointments.empty? %>
   <div class="row">
     <div class="form-group">
       <%= form_for :appointment, :url => appointments_filter_path, :method => :post do |f| %>
@@ -13,6 +12,7 @@
       <% end %>
     </div>
   </div>
+  <% if !@appointments.empty? %>
   <div class="row">
     <table class="table table-hover">
       <thead>
@@ -48,11 +48,11 @@
                   ver Acciones
                 </a>
                 <ul class="dropdown-menu">
-                  <%if !Current.user.bank_staff? %>
+                  <%if Current.user.id == appointment.id %>
                     <li><a class="dropdown-item"><%= link_to 'Cancelar', appointment, method: :delete, data: { confirm: 'Estás seguro de que deseas cancelarlo?'} %></a></li>
                     <li><a class="dropdown-item"><%= link_to 'Editar', edit_appointment_path(appointment) %></a></li>
                   <% end %>
-                  <li><a class="dropdown-item"><%= link_to 'Marcar Atendido', edit_attention_path(appointment) if !Current.user.customer? and appointment.pending? %></a></li>
+                  <li><a class="dropdown-item"><%= link_to 'Marcar Atendido', edit_attention_path(appointment) if Current.user.bank_staff? and appointment.pending? %></a></li>
                 </ul>
               </div>
             </td>
