@@ -24,11 +24,11 @@ class AppointmentPolicy < BasePolicy
   end
 
   def attend
-    Current.user.bank_staff?
+    Current.user.bank_staff? && record.branch?
   end
 
   def edit_attention
-    Current.user.bank_staff?
+    Current.user.bank_staff? && record.branch?
   end
 
   def new

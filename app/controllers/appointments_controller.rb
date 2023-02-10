@@ -2,7 +2,7 @@ class AppointmentsController < ApplicationController
   before_action :set_appointment, only: %i[show edit update destroy attend edit_attention]
   before_action :statuses, only: %i[show index filter]
   before_action :schedule_days, only: %i[edit update new create]
-  before_action :authorize!, only: %i[index filter new create edit_attention]
+  before_action :authorize!, only: %i[index filter new create ]
 
   def index
     @appointments = if Current.user.customer?
